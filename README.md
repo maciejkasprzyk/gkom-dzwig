@@ -17,3 +17,4 @@
 - Dopracowanie projektu
 
 ## Przykładowy projekt
+![alt text](https://4.allegroimg.com/original/0cec95/5b86b01449e58638a793dc6169c4)
