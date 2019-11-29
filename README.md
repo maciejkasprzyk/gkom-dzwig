@@ -8,7 +8,7 @@
 
 ## Milestones and stones
 - [ ] Szkic rozwiązania
-- [ ] Stworzenie prostych brył
+- [ ] Stworzenie prostych Bryl
     - [ ] Trzon dzwigu
     - [ ] Ramie dzwigu
     - [ ] Kabina
