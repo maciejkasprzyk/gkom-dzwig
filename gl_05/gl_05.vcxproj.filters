@@ -15,16 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="gl_05.cpp">
+    <ClCompile Include="shprogram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="shprogram.cpp">
+    <ClCompile Include="dzwig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="gl_05.frag" />
-    <None Include="gl_05.vert" />
+    <None Include="dzwig.frag" />
+    <None Include="dzwig.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="iipw.png">
