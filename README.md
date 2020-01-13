@@ -8,12 +8,12 @@
 
 ## Milestones and stones
 - [ ] Szkic rozwiązania
-- [ ] Stworzenie prostych brył
+- [ ] Stworzenie prostych Bryl
     - [ ] Trzon dzwigu
     - [ ] Ramie dzwigu
     - [ ] Kabina
     - [ ] Hak i lina
-    - [ ] Przeciwaga
+    - [ ] Przeciwwaga
 - [ ] Nałożenie tekstur na wybrane elementy
 - [ ] Dodanie tła
 - [ ] Światła z możliwością regulacji intensywności (interaktywnie)

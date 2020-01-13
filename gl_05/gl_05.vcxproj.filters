@@ -15,16 +15,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="gl_05.cpp">
+    <ClCompile Include="shprogram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="shprogram.cpp">
+    <ClCompile Include="controlls.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_05.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="gl_05.frag" />
-    <None Include="gl_05.vert" />
+    <None Include="dzwig.frag" />
+    <None Include="dzwig.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="iipw.png">
@@ -36,6 +39,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shprogram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="controlls.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
