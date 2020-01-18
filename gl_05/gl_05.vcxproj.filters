@@ -26,8 +26,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="gl_05.frag" />
-    <None Include="gl_05.vert" />
+    <None Include="gl_05.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="gl_05.vert">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="iipw.png">
