@@ -85,7 +85,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="controlls.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="gl_05.cpp" />
     <ClCompile Include="shprogram.cpp" />
   </ItemGroup>
@@ -98,7 +98,7 @@
     <Image Include="weiti.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="controlls.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="shprogram.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

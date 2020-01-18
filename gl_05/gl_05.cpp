@@ -1,6 +1,6 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
-#include "controlls.h"
+#include "Camera.h"
 #include "shprogram.h"
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
@@ -13,6 +13,16 @@ using namespace std;
 GLFWwindow* window;
 
 const GLuint WIDTH = 800, HEIGHT = 600;
+
+
+//camera
+glm::vec3 position = glm::vec3(0, 0, 5);
+float horizontalAngle = 3.14f;
+float verticalAngle = 0.0f;
+float initialFoV = 45.0f;
+float speed = 3.0f;
+float mouseSpeed = 0.005f;
+
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -72,6 +82,7 @@ int main()
 	{
 
 		window = glfwCreateWindow(WIDTH, HEIGHT, "GKOM - OpenGL 05", nullptr, nullptr);
+
 		if (window == nullptr)
 			throw exception("GLFW window not created");
 		glfwMakeContextCurrent(window);
@@ -170,7 +181,7 @@ int main()
 		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "iipw.png");
 		GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
 		GLuint transformLoc = glGetUniformLocation(theProgram.get_programID(), "transform");
-
+		Camera camera = Camera(position, horizontalAngle, verticalAngle, initialFoV, speed, mouseSpeed);
 		// main event loop
 		do
 		{
@@ -180,9 +191,9 @@ int main()
 
 			// Use our shader
 			glUseProgram(theProgram.get_programID());
-			computeMatricesFromInputs();
-			glm::mat4 ProjectionMatrix = getProjectionMatrix();
-			glm::mat4 ViewMatrix = getViewMatrix();
+			camera.computeMatricesFromInputs();
+			glm::mat4 ProjectionMatrix = camera.getProjectionMatrix();
+			glm::mat4 ViewMatrix = camera.getViewMatrix();
 			glm::mat4 ModelMatrix = glm::mat4(1.0);
 			glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 
