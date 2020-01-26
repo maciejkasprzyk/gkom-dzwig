@@ -112,31 +112,17 @@ public:
 		glm::mat4 view;
 		view = camera.getViewMatrix();
 
-		GLint modelLoc = glGetUniformLocation(programId, "model");
-		GLint viewLoc = glGetUniformLocation(programId, "view");
-		GLint projLoc = glGetUniformLocation(programId, "projection");
+		glm::mat4 modelLoc = glm::mat4(1.0);
+		glm::mat4 viewLoc = camera.getViewMatrix();
+		glm::mat4 projLoc = camera.getProjectionMatrix();
 
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+		glm::mat4 MVP = projLoc * viewLoc * modelLoc;
 
 		glBindVertexArray(VAO);
 
-		glm::mat4 model;
-		glm::mat4 translation;
-		glm::mat4 rotationX;
-		glm::mat4 rotationY;
-		glm::mat4 rotationZ;
-		glm::mat4 constRot;
+		GLuint transformLoc = glGetUniformLocation(programId, "transform");
 
-		translation = glm::translate(translation, glm::vec3(xPosition, yPosition, zPosition));
-		rotationX = glm::rotate(rotationX, glm::radians(xRotation), glm::vec3(1.0f, 0.0f, 0.0f));
-		rotationY = glm::rotate(rotationY, glm::radians(yRotation), glm::vec3(0.0f, 1.0f, 0.0f));
-		rotationZ = glm::rotate(rotationZ, glm::radians(zRotation), glm::vec3(0.0f, 0.0f, 1.0f));
-		constRot = glm::rotate(constRot, glm::radians(5.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-
-		model = translation * rotationX * rotationY * rotationZ;
-
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, &MVP[0][0]);
 		glDrawElements(GL_TRIANGLES, indicesCounter, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}

@@ -13,26 +13,11 @@ using namespace std;
 GLFWwindow* window;
 
 GLuint LoadMipmapTexture(GLuint texId, const char* fname);
-const GLuint WIDTH = 800, HEIGHT = 600;
-GLfloat* myObjectVertices(unsigned int& size) {
-	GLfloat vertices[] = {
-			 60.0f, 0.0f,  60.0f,		1.0f, 0.0f, 0.0f,		0.0f,  20.0f,	0.0f, 1.0f, 0.0f,
-			-60.0f, 0.0f,  60.0f,		0.0f, 1.0f, 0.0f,		0.0f,  0.0f,	0.0f, 1.0f, 0.0f,
-			-60.0f, 0.0f, -60.0f,		0.0f, 0.0f, 1.0f,		20.0f,  0.0f,	0.0f, 1.0f, 0.0f,
-			 60.0f, 0.0f, -60.0f,		1.0f, 0.0f, 1.0f,		20.0f,  20.0f,	0.0f, 1.0f, 0.0f
-	};
-	size = sizeof(vertices);
-	return vertices;
-}
+GLfloat* myObjectVertices(unsigned int& size);
+GLuint* myObjectIndices(unsigned int& size);
 
-GLuint* myObjectIndices(unsigned int& size) {
-	GLuint indices[] = {
-	0, 1, 2,
-	0, 2, 3
-	};
-	size = sizeof(indices);
-	return indices;
-}
+const GLuint WIDTH = 800, HEIGHT = 600;
+
 
 //camera
 glm::vec3 position = glm::vec3(0, 0, 0);
@@ -76,7 +61,7 @@ int main()
 	}
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	try
 	{
@@ -94,7 +79,6 @@ int main()
 
 		glViewport(0, 0, WIDTH, HEIGHT);
 
-		// Let's check what are maximum parameters counts
 		GLint nrAttributes;
 		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
 		cout << "Max vertex attributes allowed: " << nrAttributes << std::endl;
@@ -104,49 +88,12 @@ int main()
 		// Build, compile and link shader program
 		ShaderProgram theProgram("gl_05.vert", "gl_05.frag");
 
-		// Set up vertex data 
-		GLfloat vertices[] = {
-			// coordinates			// color			// texture
-			0.25f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//0
-			-0.75f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//1
-			-0.25f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,	//2
-			0.75f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,	//3
-			-0.25f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//4
-			-0.75f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//5
-			0.25f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//6
-			0.75f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//7
-			-0.25f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//8
-			-0.25f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,	//9
-			0.75f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,	//10
-			0.75f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//11
-			-0.75f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//12
-			-0.75f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//13
-			0.25f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//14
-			0.25f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//15
-			-0.25f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//16
-			-0.75f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//17
-			-0.25f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//18
-			-0.75f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	1.0f,  1.0f,	//19
-			0.75f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//20
-			0.75f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//21
-			0.25f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  1.0f,	//22
-			0.25f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f		//23
-		};
-
-		GLuint indices[] = {
-			0, 1, 2,
-			0, 2, 3,
-		};
-
 		unsigned int verticesSize, indicesSize;
-		verticesSize = sizeof(vertices);
-		indicesSize = sizeof(indices);
-		//GLuint* indicesMyObject = myObjectIndices(indicesSize);
-		//GLfloat* verticesMyObject = myObjectVertices(verticesSize);
-		
-		Object cylinder = Object("grass.png", 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, vertices, indices, verticesSize, indicesSize);
+		GLuint* indicesMyObject = myObjectIndices(indicesSize);
+		GLfloat* verticesMyObject = myObjectVertices(verticesSize);
 
-		GLuint transformLoc = glGetUniformLocation(theProgram.get_programID(), "transform");
+		Object whyItDoesNotWorkFFS = Object("grass.png", 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, verticesMyObject, indicesMyObject, verticesSize, indicesSize);
+
 		Camera camera = Camera(position, horizontalAngle, verticalAngle, initialFoV, speed, mouseSpeed);
 		// main event loop
 		do
@@ -158,13 +105,11 @@ int main()
 
 			theProgram.Use();
 
-			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightColor"), 1.0f, 1.0f, 1.0f);
-			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightPos"), -2.0f, 4.0f, 3.0f);
-			cylinder.draw(theProgram.get_programID(), camera, WIDTH, HEIGHT);
+			whyItDoesNotWorkFFS.draw(theProgram.get_programID(), camera, WIDTH, HEIGHT);
 
 			// Use our shader
 			glUseProgram(theProgram.get_programID());
-			
+
 			glfwSwapBuffers(window);
 
 		} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
@@ -196,4 +141,47 @@ GLuint LoadMipmapTexture(GLuint texId, const char* fname)
 	SOIL_free_image_data(image);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return texture;
+}
+
+
+
+
+GLfloat* myObjectVertices(unsigned int& size) {
+	static GLfloat vertices[] = {
+			0.25f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//0
+			-0.75f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//1
+			-0.25f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,	//2
+			0.75f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,	//3
+			-0.25f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//4
+			-0.75f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//5
+			0.25f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//6
+			0.75f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//7
+			-0.25f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//8
+			-0.25f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,	//9
+			0.75f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,	//10
+			0.75f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//11
+			-0.75f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//12
+			-0.75f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//13
+			0.25f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//14
+			0.25f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//15
+			-0.25f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//16
+			-0.75f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//17
+			-0.25f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//18
+			-0.75f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	1.0f,  1.0f,	//19
+			0.75f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//20
+			0.75f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//21
+			0.25f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  1.0f,	//22
+			0.25f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f		//23
+	};
+	size = sizeof(vertices);
+	return vertices;
+}
+
+GLuint* myObjectIndices(unsigned int& size) {
+	static GLuint indices[] = {
+	0, 1, 2,
+	0, 2, 3
+	};
+	size = sizeof(indices);
+	return indices;
 }
