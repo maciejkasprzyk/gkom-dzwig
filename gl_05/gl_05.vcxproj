@@ -87,6 +87,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="gl_05.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="shprogram.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -94,11 +95,13 @@
     <None Include="gl_05.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="grass.png" />
     <Image Include="iipw.png" />
     <Image Include="weiti.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="shprogram.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

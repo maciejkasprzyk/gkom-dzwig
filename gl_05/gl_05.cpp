@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include "Camera.h"
 #include "shprogram.h"
+#include "Object.h"
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
 #include <iostream>
@@ -9,14 +10,32 @@ using namespace std;
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
 GLFWwindow* window;
 
+GLuint LoadMipmapTexture(GLuint texId, const char* fname);
 const GLuint WIDTH = 800, HEIGHT = 600;
+GLfloat* myObjectVertices(unsigned int& size) {
+	GLfloat vertices[] = {
+			 60.0f, 0.0f,  60.0f,		1.0f, 0.0f, 0.0f,		0.0f,  20.0f,	0.0f, 1.0f, 0.0f,
+			-60.0f, 0.0f,  60.0f,		0.0f, 1.0f, 0.0f,		0.0f,  0.0f,	0.0f, 1.0f, 0.0f,
+			-60.0f, 0.0f, -60.0f,		0.0f, 0.0f, 1.0f,		20.0f,  0.0f,	0.0f, 1.0f, 0.0f,
+			 60.0f, 0.0f, -60.0f,		1.0f, 0.0f, 1.0f,		20.0f,  20.0f,	0.0f, 1.0f, 0.0f
+	};
+	size = sizeof(vertices);
+	return vertices;
+}
 
+GLuint* myObjectIndices(unsigned int& size) {
+	GLuint indices[] = {
+	0, 1, 2,
+	0, 2, 3
+	};
+	size = sizeof(indices);
+	return indices;
+}
 
 //camera
-glm::vec3 position = glm::vec3(0, 0, 5);
+glm::vec3 position = glm::vec3(0, 0, 0);
 float horizontalAngle = 3.14f;
 float verticalAngle = 0.0f;
 float initialFoV = 45.0f;
@@ -29,25 +48,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	cout << key << endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
-}
-
-GLuint LoadMipmapTexture(GLuint texId, const char* fname)
-{
-	int width, height;
-	unsigned char* image = SOIL_load_image(fname, &width, &height, 0, SOIL_LOAD_RGB);
-	if (image == nullptr)
-		throw exception("Failed to load texture file");
-
-	GLuint texture;
-	glGenTextures(1, &texture);
-
-	glActiveTexture(texId);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(image);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	return texture;
 }
 
 ostream& operator<<(ostream& os, const glm::mat4& mx)
@@ -138,97 +138,37 @@ int main()
 			0, 2, 3,
 		};
 
-		GLuint VBO, EBO, VAO;
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
-		glDepthFunc(GL_LESS);
-		glEnable(GL_CULL_FACE);
+		unsigned int verticesSize, indicesSize;
+		verticesSize = sizeof(vertices);
+		indicesSize = sizeof(indices);
+		//GLuint* indicesMyObject = myObjectIndices(indicesSize);
+		//GLfloat* verticesMyObject = myObjectVertices(verticesSize);
+		
+		Object cylinder = Object("grass.png", 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, vertices, indices, verticesSize, indicesSize);
 
-		// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
-		glBindVertexArray(VAO);
-
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-		// vertex geometry data
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
-		glEnableVertexAttribArray(0);
-
-		// vertex color data
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(1);
-
-		// vertex texture coordinates
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(2);
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
-
-		glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
-
-							  // Set the texture wrapping parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT (usually basic wrapping method)
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		// Set texture filtering parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		// prepare textures
-		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "iipw.png");
-		GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
 		GLuint transformLoc = glGetUniformLocation(theProgram.get_programID(), "transform");
 		Camera camera = Camera(position, horizontalAngle, verticalAngle, initialFoV, speed, mouseSpeed);
 		// main event loop
 		do
 		{
-			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
+			camera.computeMatricesFromInputs();
 			glfwPollEvents();
+			glClearColor(0.2f, 0.7f, 0.9f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			theProgram.Use();
+
+			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightColor"), 1.0f, 1.0f, 1.0f);
+			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightPos"), -2.0f, 4.0f, 3.0f);
+			cylinder.draw(theProgram.get_programID(), camera, WIDTH, HEIGHT);
 
 			// Use our shader
 			glUseProgram(theProgram.get_programID());
-			camera.computeMatricesFromInputs();
-			glm::mat4 ProjectionMatrix = camera.getProjectionMatrix();
-			glm::mat4 ViewMatrix = camera.getViewMatrix();
-			glm::mat4 ModelMatrix = glm::mat4(1.0);
-			glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
-
-
-			// Bind Textures using texture units
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, texture0);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture0"), 0);
-			glActiveTexture(GL_TEXTURE1);
-			glBindTexture(GL_TEXTURE_2D, texture1);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
-
-			glm::mat4 trans;
-			static GLfloat rot_angle = 0.0f;
-			trans = glm::rotate(trans, -glm::radians(rot_angle), glm::vec3(1.0, 0.0, 0.0));
-			rot_angle += 0.05f;
-			if (rot_angle >= 360.0f)
-				rot_angle -= 360.0f;
-			//glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
-			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, &MVP[0][0]);
-
-			// Draw our first triangle
-			//theProgram.Use();
-
-			glBindVertexArray(VAO);
-			glDrawElements(GL_TRIANGLES, _countof(indices), GL_UNSIGNED_INT, 0);
-			glBindVertexArray(0);
-
-			// Swap the screen buffers
+			
 			glfwSwapBuffers(window);
+
 		} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 			glfwWindowShouldClose(window) == 0);
-		glDeleteVertexArrays(1, &VAO);
-		glDeleteBuffers(1, &VBO);
-		glDeleteBuffers(1, &EBO);
 	}
 	catch (exception ex)
 	{
@@ -237,4 +177,23 @@ int main()
 	glfwTerminate();
 
 	return 0;
+}
+
+GLuint LoadMipmapTexture(GLuint texId, const char* fname)
+{
+	int width, height;
+	unsigned char* image = SOIL_load_image(fname, &width, &height, 0, SOIL_LOAD_RGB);
+	if (image == nullptr)
+		throw exception("Failed to load texture file");
+
+	GLuint texture;
+	glGenTextures(1, &texture);
+
+	glActiveTexture(texId);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	return texture;
 }

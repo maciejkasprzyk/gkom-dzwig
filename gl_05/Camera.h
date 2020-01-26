@@ -1,6 +1,7 @@
 #ifndef CONTROLS_HPP
 #define CONTROLS_HPP
 
+#include <vector>
 #include <glm/glm.hpp>
 using namespace glm;
 
@@ -12,7 +13,6 @@ class Camera {
 	float initialFoV;
 	float speed;
 	float mouseSpeed;
-
 	glm::mat4 ViewMatrix;
 	glm::mat4 ProjectionMatrix;
 public:
@@ -38,6 +38,9 @@ public:
 	}
 	glm::mat4 getProjectionMatrix() {
 		return ProjectionMatrix;
+	}
+	float getFoV() {
+		return initialFoV;
 	}
 	void computeMatricesFromInputs();
 };
