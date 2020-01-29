@@ -66,7 +66,7 @@ int main()
 
 
 		// camera setup
-		glm::vec3 positionVec = glm::vec3(-10, 2, -10);
+		glm::vec3 positionVec = glm::vec3(-3, 2, -3);
 		float horizontalAngle = 0.785f;
 		float verticalAngle = 0.0f;
 		float initialFoV = 45.0f;
@@ -86,9 +86,10 @@ int main()
 
 		// cube
 		Cube cube(glm::vec4(0.96f, 0.89f, 0.3f, 1.0f));
-		cube.scale(glm::vec3(-0.95f, 10.0f, -0.95f));
+		//cube.scale(glm::vec3(-0.95f, 10.0f, -0.95f));
 		//cube.rotate(glm::vec3(45.0f, 3.0f, 1.0f));
-		cube.move(glm::vec3(0.0f, 5.0f, 0.0f));
+		//cube.move(glm::vec3(0.0f, 5.0f, 0.0f));
+		cube.move(glm::vec3(0.0f, 1.0f, 0.0f));
 
 		while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
 		{

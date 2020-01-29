@@ -21,10 +21,10 @@ public:
 private:
 	void initVerticies() override {
 		vector <GLfloat> vertices = {
-			 0.5f,  0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	reps,  0.0f,	//0
-			-0.5f,  0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//1
-			-0.5f, -0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	0.0f,  reps,	//2
-			0.5f, -0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	reps,  reps,	//3
+			 0.5f,  0.5f,  -0.5f,		0.0f, 0.0f, 1.0f,	reps,  0.0f,	//0
+			-0.5f,  0.5f,  -0.5f,		0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//1
+			-0.5f, -0.5f,  -0.5f,		0.0f, 0.0f, 1.0f,	0.0f,  reps,	//2
+			0.5f, -0.5f,  -0.5f,		0.0f, 0.0f, 1.0f,	reps,  reps,	//3
 			-0.5f, -0.5f,  0.5f,		0.0f, 0.0f, -1.0f,	0.0f,  0.0f,	//4
 			-0.5f,  0.5f,  0.5f,		0.0f, 0.0f, -1.0f,	0.0f,  reps,	//5
 			0.5f,  0.5f,  0.5f,			0.0f, 0.0f, -1.0f,	reps,  reps,	//6
