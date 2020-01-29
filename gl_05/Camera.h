@@ -12,7 +12,7 @@ using namespace glm;
 
 class Camera {
 	GLFWwindow* window;
-	glm::vec3 position;
+	glm::vec3 positionVec;
 	float horizontalAngle;
 	float verticalAngle;
 	float initialFoV;
@@ -30,7 +30,7 @@ public:
 		float speedOfCamera,
 		float speedOfMouse) {
 		window = windoww;
-		position = pos;
+		positionVec = pos;
 		horizontalAngle = hAngle;
 		verticalAngle = vAngle;
 		initialFoV = initFoV;
@@ -83,27 +83,27 @@ public:
 
 		// Move forward
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-			position += direction * deltaTime * speed;
+			positionVec += direction * deltaTime * speed;
 		}
 		// Move backward
 		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-			position -= direction * deltaTime * speed;
+			positionVec -= direction * deltaTime * speed;
 		}
 		// Strafe right
 		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-			position += right * deltaTime * speed;
+			positionVec += right * deltaTime * speed;
 		}
 		// Strafe left
 		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-			position -= right * deltaTime * speed;
+			positionVec -= right * deltaTime * speed;
 		}
 		// Strafe up
 		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-			position += up * deltaTime * speed;
+			positionVec += up * deltaTime * speed;
 		}
 		// Strafe down
 		if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-			position -= up * deltaTime * speed;
+			positionVec -= up * deltaTime * speed;
 		}
 
 		float FoV = initialFoV;
@@ -111,8 +111,8 @@ public:
 		ProjectionMatrix = glm::perspective(glm::radians(FoV), 4.0f / 3.0f, 0.1f, 100.0f);
 		// Camera matrix
 		ViewMatrix = glm::lookAt(
-			position,
-			position + direction,
+			positionVec,
+			positionVec + direction,
 			up
 		);
 		lastTime = currentTime;

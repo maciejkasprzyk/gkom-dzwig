@@ -11,11 +11,11 @@ using namespace std;
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "Constants.h"
+#include "Cube.h"
 
 
-
-GLfloat* myObjectVertices(unsigned int& size);
-GLuint* myObjectIndices(unsigned int& size);
+GLfloat* myObjectVertices(unsigned int& scaleVec);
+GLuint* myObjectIndices(unsigned int& scaleVec);
 
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -73,35 +73,37 @@ int main()
 
 		// Build, compile and link shader program
 		ShaderProgram shaders("gl_05.vert", "gl_05.frag");
+		shaders.Use();
 
-		unsigned int verticesSize, indicesSize;
-		GLuint* indicesMyObject = myObjectIndices(indicesSize);
-		GLfloat* verticesMyObject = myObjectVertices(verticesSize);
-
-		Object whyItDoesNotWorkFFS = Object("grass.png", 2.0f, 2.0f, 2.0f, 1.0f, 0.0f, 0.0f, verticesMyObject, indicesMyObject, verticesSize, indicesSize);
-
-		glm::vec3 position = glm::vec3(0, 0, 0);
+		glm::vec3 positionVec = glm::vec3(0, 0, 0);
 		float horizontalAngle = 3.14f;
 		float verticalAngle = 0.0f;
 		float initialFoV = 45.0f;
 		float speed = 3.0f;
 		float mouseSpeed = 0.005f;
-		Camera camera = Camera(window, position, horizontalAngle, verticalAngle, initialFoV, speed, mouseSpeed);
+		Camera camera = Camera(window, positionVec, horizontalAngle, verticalAngle, initialFoV, speed, mouseSpeed);
 
 		// main event loop
+		Cube cube("grass.png");
+		cube.scale(glm::vec3(2.0f, 3.0f, 1.0f));
+		cube.rotate(glm::vec3(45.0f, 3.0f, 1.0f));
+		cube.move(glm::vec3(1.0f, 0.0f, 0.0f));
+
 		while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
 		{
 			glClearColor(0.2f, 0.7f, 0.9f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			camera.computeMatricesFromInputs();
+			glm::mat4 view = camera.getViewMatrix();
+			glm::mat4 projection = camera.getProjectionMatrix();
+			glUniformMatrix4fv(glGetUniformLocation(shaders.get_programID(), "view"),1, GL_FALSE, &view[0][0]);
+			glUniformMatrix4fv(glGetUniformLocation(shaders.get_programID(), "projection"),1, GL_FALSE, &projection[0][0]);
+			
+			cube.draw(shaders.get_programID(), camera);
+
+
 			glfwPollEvents();
-
-			shaders.Use();
-
-			whyItDoesNotWorkFFS.draw(shaders.get_programID(), camera, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-
 			glfwSwapBuffers(window);
 		} ;
 	}
@@ -112,78 +114,4 @@ int main()
 	glfwTerminate();
 
 	return 0;
-}
-
-
-
-GLfloat* myObjectVertices(unsigned int& size) {
-	static GLfloat vertices[] = {
-			 0.5f,  0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//0
-			-0.5f,  0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//1
-			-0.5f, -0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	0.0f,  1.0f,	//2
-			0.5f, -0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//3
-			-0.5f, -0.5f,  0.5f,		0.0f, 0.0f, -1.0f,	0.0f,  0.0f,	//4
-			-0.5f,  0.5f,  0.5f,		0.0f, 0.0f, -1.0f,	0.0f,  1.0f,	//5
-			0.5f,  0.5f,  0.5f,			0.0f, 0.0f, -1.0f,	1.0f,  1.0f,	//6
-			0.5f, -0.5f,  0.5f,			0.0f, 0.0f, -1.0f,	1.0f,  0.0f,	//7
-			-0.5f, -0.5f,  -0.5f,		0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//8
-			-0.5f, -0.5f,  0.5f,		0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//9
-			0.5f, -0.5f,  0.5f,			0.0f, 1.0f, 0.0f,	1.0f,  1.0f,	//10
-			0.5f, -0.5f,  -0.5f,		0.0f, 1.0f, 0.0f,	1.0f,  0.0f,	//11
-			-0.5f,  0.5f,  0.5f,		0.0f, -1.0f, 0.0f,	0.0f,  0.0f,	//12
-			-0.5f,  0.5f,  -0.5f,		0.0f, -1.0f, 0.0f,	0.0f,  1.0f,	//13
-			0.5f,  0.5f,  -0.5f,		0.0f, -1.0f, 0.0f,	1.0f,  1.0f,	//14
-			0.5f,  0.5f,  0.5f,			0.0f, -1.0f, 0.0f,	1.0f,  0.0f,	//15
-			-0.5f, -0.5f,  -0.5f,		1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//16
-			-0.5f,  0.5f,  -0.5f,		1.0f, 0.0f, 0.0f,	0.0f,  1.0f,	//17
-			-0.5f,  0.5f,  0.5f,		1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//19
-			-0.5f, -0.5f,  0.5f,		1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//18
-			0.5f, -0.5f,  -0.5f,		-1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//20
-			0.5f, -0.5f,  0.5f,			-1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//21
-			0.5f,  0.5f,  0.5f,			-1.0f, 0.0f, 0.0f,	0.0f,  1.0f,	//22
-			0.5f,  0.5f,  -0.5f,		-1.0f, 0.0f, 0.0f,	1.0f,  1.0f		//23
-	};
-	size = sizeof(vertices);
-	return vertices;
-}
-
-GLuint* myObjectIndices(unsigned int& size) {
-	static GLuint indices[] = {
-	0,1,2,
-	0,2,3,
-	4,5,6,
-	4,6,7,
-	8,9,10,
-	8,10,11,
-	12,13,14,
-	12,14,15,
-	16,17,18,
-	16,18,19,
-	20,21,22,
-	20,22,23
-	};
-	size = sizeof(indices);
-	return indices;
-}
-
-GLfloat* groundVertices(unsigned int& size) {
-	static GLfloat vertices[] = {
-		// coordinates			// color				// texture			//normals
-		6.0f, 0.0f,  6.0f,		1.0f, 0.0f, 0.0f,		20.0f,  0.0f,	0.0f, 1.0f, 0.0f,
-	   -6.0f, 0.0f,  6.0f,		0.0f, 1.0f, 0.0f,		0.0f,  0.0f,	0.0f, 1.0f, 0.0f,
-	   -6.0f, 0.0f, -6.0f,		0.0f, 0.0f, 1.0f,		0.0f,  20.0f,	0.0f, 1.0f, 0.0f,
-		6.0f, 0.0f, -6.0f,		1.0f, 0.0f, 1.0f,		20.0f, 20.0f,	0.0f, 1.0f, 0.0f
-	};
-
-	size = sizeof(vertices);
-	return vertices;
-}
-
-GLuint* groundIndices(unsigned int& size) {
-	static GLuint indices[] = {
-		0, 1, 2,
-		0, 2, 3
-	};
-	size = sizeof(indices);
-	return indices;
 }
