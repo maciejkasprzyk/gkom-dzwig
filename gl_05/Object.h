@@ -93,6 +93,7 @@ public:
 		texture0 = texture;
 
 		indicesCounter = indicesSize / (sizeof(GLfloat));
+
 	}
 
 	~Object() {
