@@ -20,7 +20,7 @@ GLuint* myObjectIndices(unsigned int& scaleVec);
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-	cout << key << endl;
+	// cout << key << endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
@@ -49,7 +49,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	try
 	{
-		GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "GKOM - OpenGL 05", nullptr, nullptr);
+		GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Dzwig", nullptr, nullptr);
 		if (window == nullptr)
 			throw exception("GLFW window not created");
 
@@ -64,17 +64,8 @@ int main()
 		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
-		GLint nrAttributes;
-		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
-		cout << "Max vertex attributes allowed: " << nrAttributes << std::endl;
-		glGetIntegerv(GL_MAX_TEXTURE_COORDS, &nrAttributes);
-		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
 
-
-		// Build, compile and link shader program
-		ShaderProgram shaders("gl_05.vert", "gl_05.frag");
-		shaders.Use();
-
+		// camera setup
 		glm::vec3 positionVec = glm::vec3(-10, 2, -10);
 		float horizontalAngle = 0.785f;
 		float verticalAngle = 0.0f;
@@ -83,14 +74,20 @@ int main()
 		float mouseSpeed = 0.005f;
 		Camera camera = Camera(window, positionVec, horizontalAngle, verticalAngle, initialFoV, speed, mouseSpeed);
 
-		// main event loop
+		//shaders
+		ShaderProgram textureShaders("texture.vert", "texture.frag");
+		ShaderProgram colorShaders("color.vert", "color.frag");
 
+		// -------------- objects -----------------
+		//ground
 		Cube ground("gravel.jpg", 50);
-		ground.scale(glm::vec3(100.0f, 0.001f, 100.0f));
+		ground.scale(glm::vec3(100.0f, 0.0f, 100.0f));
+		ground.move(glm::vec3(0.0f, -1.0f, 0.0f));
 
-		Cube cube("gravel.jpg", 1);
-		cube.scale(glm::vec3(2.0f, 3.0f, 1.0f));
-		cube.rotate(glm::vec3(45.0f, 3.0f, 1.0f));
+		// cube
+		Cube cube(glm::vec4(0.96f, 0.89f, 0.3f, 1.0f));
+		cube.scale(glm::vec3(-0.95f, 10.0f, -0.95f));
+		//cube.rotate(glm::vec3(45.0f, 3.0f, 1.0f));
 		cube.move(glm::vec3(0.0f, 5.0f, 0.0f));
 
 		while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
@@ -101,11 +98,16 @@ int main()
 			camera.computeMatricesFromInputs();
 			glm::mat4 view = camera.getViewMatrix();
 			glm::mat4 projection = camera.getProjectionMatrix();
-			glUniformMatrix4fv(glGetUniformLocation(shaders.get_programID(), "view"),1, GL_FALSE, &view[0][0]);
-			glUniformMatrix4fv(glGetUniformLocation(shaders.get_programID(), "projection"),1, GL_FALSE, &projection[0][0]);
-			
-			cube.draw(shaders.get_programID(), camera);
-			ground.draw(shaders.get_programID(), camera);
+
+			textureShaders.Use();
+			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "view"),1, GL_FALSE, &view[0][0]);
+			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "projection"),1, GL_FALSE, &projection[0][0]);
+			ground.draw(textureShaders.get_programID(), camera);
+
+			colorShaders.Use();
+			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
+			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
+			cube.draw(colorShaders.get_programID(), camera);
 
 
 			glfwPollEvents();

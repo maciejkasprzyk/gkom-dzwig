@@ -20,10 +20,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="gl_05.frag">
+    <None Include="texture.frag">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="gl_05.vert">
+    <None Include="texture.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="color.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="color.vert">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

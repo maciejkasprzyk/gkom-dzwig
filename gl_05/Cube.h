@@ -9,7 +9,14 @@ public:
 	GLfloat reps;
 	Cube(string textureName, GLfloat texture_repeats) : Primitive(textureName) {
 		this->reps = texture_repeats * 1.0f;
-		init(); }
+		init(); 
+	}
+
+	Cube(glm::vec4 color) : Primitive(color) {
+		this->reps = 0.0f; // to i tak jest nieuzywane
+		init();
+	}
+
 
 private:
 	void initVerticies() override {
