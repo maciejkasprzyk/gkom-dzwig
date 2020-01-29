@@ -86,31 +86,35 @@ int main()
 		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
 
 		// Build, compile and link shader program
-		ShaderProgram theProgram("gl_05.vert", "gl_05.frag");
+		ShaderProgram shaders("gl_05.vert", "gl_05.frag");
 
 		unsigned int verticesSize, indicesSize;
 		GLuint* indicesMyObject = myObjectIndices(indicesSize);
 		GLfloat* verticesMyObject = myObjectVertices(verticesSize);
 
-		Object whyItDoesNotWorkFFS = Object("grass.png", 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, verticesMyObject, indicesMyObject, verticesSize, indicesSize);
+		Object whyItDoesNotWorkFFS = Object("grass.png", 2.0f, 2.0f, 2.0f, 1.0f, 0.0f, 0.0f, verticesMyObject, indicesMyObject, verticesSize, indicesSize);
 
 		Camera camera = Camera(position, horizontalAngle, verticalAngle, initialFoV, speed, mouseSpeed);
 		// main event loop
 		do
 		{
+			glEnable(GL_DEPTH_TEST);
+			glDepthFunc(GL_LESS);
+
+
 			camera.computeMatricesFromInputs();
 			glfwPollEvents();
 			glClearColor(0.2f, 0.7f, 0.9f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			theProgram.Use();
+			shaders.Use();
 
-			whyItDoesNotWorkFFS.draw(theProgram.get_programID(), camera, WIDTH, HEIGHT);
+			whyItDoesNotWorkFFS.draw(shaders.get_programID(), camera, WIDTH, HEIGHT);
 
-			// Use our shader
-			glUseProgram(theProgram.get_programID());
 
 			glfwSwapBuffers(window);
+
+			glClear(GL_DEPTH_BUFFER_BIT);
 
 		} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 			glfwWindowShouldClose(window) == 0);
@@ -148,30 +152,30 @@ GLuint LoadMipmapTexture(GLuint texId, const char* fname)
 
 GLfloat* myObjectVertices(unsigned int& size) {
 	static GLfloat vertices[] = {
-			0.25f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//0
-			-0.75f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//1
-			-0.25f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,	//2
-			0.75f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,	//3
-			-0.25f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//4
-			-0.75f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//5
-			0.25f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//6
-			0.75f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//7
-			-0.25f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//8
-			-0.25f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,	//9
-			0.75f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,	//10
-			0.75f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//11
-			-0.75f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//12
-			-0.75f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//13
-			0.25f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//14
-			0.25f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//15
-			-0.25f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//16
-			-0.75f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//17
-			-0.25f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//18
-			-0.75f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	1.0f,  1.0f,	//19
-			0.75f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//20
-			0.75f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//21
-			0.25f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  1.0f,	//22
-			0.25f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f		//23
+			 0.5f,  0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//0
+			-0.5f,  0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//1
+			-0.5f, -0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	0.0f,  1.0f,	//2
+			0.5f, -0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//3
+			-0.5f, -0.5f,  0.5f,		0.0f, 0.0f, -1.0f,	0.0f,  0.0f,	//4
+			-0.5f,  0.5f,  0.5f,		0.0f, 0.0f, -1.0f,	0.0f,  1.0f,	//5
+			0.5f,  0.5f,  0.5f,			0.0f, 0.0f, -1.0f,	1.0f,  1.0f,	//6
+			0.5f, -0.5f,  0.5f,			0.0f, 0.0f, -1.0f,	1.0f,  0.0f,	//7
+			-0.5f, -0.5f,  -0.5f,		0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//8
+			-0.5f, -0.5f,  0.5f,		0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//9
+			0.5f, -0.5f,  0.5f,			0.0f, 1.0f, 0.0f,	1.0f,  1.0f,	//10
+			0.5f, -0.5f,  -0.5f,		0.0f, 1.0f, 0.0f,	1.0f,  0.0f,	//11
+			-0.5f,  0.5f,  0.5f,		0.0f, -1.0f, 0.0f,	0.0f,  0.0f,	//12
+			-0.5f,  0.5f,  -0.5f,		0.0f, -1.0f, 0.0f,	0.0f,  1.0f,	//13
+			0.5f,  0.5f,  -0.5f,		0.0f, -1.0f, 0.0f,	1.0f,  1.0f,	//14
+			0.5f,  0.5f,  0.5f,			0.0f, -1.0f, 0.0f,	1.0f,  0.0f,	//15
+			-0.5f, -0.5f,  -0.5f,		1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//16
+			-0.5f,  0.5f,  -0.5f,		1.0f, 0.0f, 0.0f,	0.0f,  1.0f,	//17
+			-0.5f,  0.5f,  0.5f,		1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//19
+			-0.5f, -0.5f,  0.5f,		1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//18
+			0.5f, -0.5f,  -0.5f,		-1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//20
+			0.5f, -0.5f,  0.5f,			-1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//21
+			0.5f,  0.5f,  0.5f,			-1.0f, 0.0f, 0.0f,	0.0f,  1.0f,	//22
+			0.5f,  0.5f,  -0.5f,		-1.0f, 0.0f, 0.0f,	1.0f,  1.0f		//23
 	};
 	size = sizeof(vertices);
 	return vertices;
@@ -179,8 +183,40 @@ GLfloat* myObjectVertices(unsigned int& size) {
 
 GLuint* myObjectIndices(unsigned int& size) {
 	static GLuint indices[] = {
-	0, 1, 2,
-	0, 2, 3
+	0,1,2,
+	0,2,3,
+	4,5,6,
+	4,6,7,
+	8,9,10,
+	8,10,11,
+	12,13,14,
+	12,14,15,
+	16,17,18,
+	16,18,19,
+	20,21,22,
+	20,22,23
+	};
+	size = sizeof(indices);
+	return indices;
+}
+
+GLfloat* groundVertices(unsigned int& size) {
+	static GLfloat vertices[] = {
+		// coordinates			// color				// texture			//normals
+		6.0f, 0.0f,  6.0f,		1.0f, 0.0f, 0.0f,		20.0f,  0.0f,	0.0f, 1.0f, 0.0f,
+	   -6.0f, 0.0f,  6.0f,		0.0f, 1.0f, 0.0f,		0.0f,  0.0f,	0.0f, 1.0f, 0.0f,
+	   -6.0f, 0.0f, -6.0f,		0.0f, 0.0f, 1.0f,		0.0f,  20.0f,	0.0f, 1.0f, 0.0f,
+		6.0f, 0.0f, -6.0f,		1.0f, 0.0f, 1.0f,		20.0f, 20.0f,	0.0f, 1.0f, 0.0f
+	};
+
+	size = sizeof(vertices);
+	return vertices;
+}
+
+GLuint* groundIndices(unsigned int& size) {
+	static GLuint indices[] = {
+		0, 1, 2,
+		0, 2, 3
 	};
 	size = sizeof(indices);
 	return indices;
