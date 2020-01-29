@@ -28,27 +28,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="iipw.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="weiti.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="grass.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="brick.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="grass.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="rock.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="stone.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="gravel.jpg">
       <Filter>Resource Files</Filter>
     </Image>
