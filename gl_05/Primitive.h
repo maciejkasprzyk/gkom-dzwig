@@ -27,10 +27,8 @@ class Primitive : public Object
 
 protected:
 	// te wartosci musza zostac przypisane przez klase potomna w metodach wirtualnych
-	GLfloat* vertices;
-	GLuint verticesSize;
-	GLuint indicesSize;
-	GLuint* indices;
+	vector<GLfloat> vertices;
+	vector<GLuint> indices;
 
 	string textureName;
 
@@ -59,11 +57,11 @@ public:
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureId);
-		glUniform1i(glGetUniformLocation(shaderId, "Texture0"), 0);
+		glUniform1i(glGetUniformLocation(shaderId, "Texture"), 0);
 
 		glBindVertexArray(VAO);
-		GLuint indicesCounter = indicesSize / (sizeof(GLfloat));
-		glDrawElements(GL_TRIANGLES, indicesCounter, GL_UNSIGNED_INT, 0);
+		
+		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 
@@ -78,10 +76,10 @@ public:
 		glBindVertexArray(VAO);
 
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, verticesSize, vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), &vertices[0], GL_STATIC_DRAW);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(indices[0]), &indices[0], GL_STATIC_DRAW);
 
 		// Position
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);

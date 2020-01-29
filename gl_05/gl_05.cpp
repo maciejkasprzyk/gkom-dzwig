@@ -75,8 +75,8 @@ int main()
 		ShaderProgram shaders("gl_05.vert", "gl_05.frag");
 		shaders.Use();
 
-		glm::vec3 positionVec = glm::vec3(0, 0, 0);
-		float horizontalAngle = 3.14f;
+		glm::vec3 positionVec = glm::vec3(-10, 2, -10);
+		float horizontalAngle = 0.785f;
 		float verticalAngle = 0.0f;
 		float initialFoV = 45.0f;
 		float speed = 3.0f;
@@ -84,10 +84,14 @@ int main()
 		Camera camera = Camera(window, positionVec, horizontalAngle, verticalAngle, initialFoV, speed, mouseSpeed);
 
 		// main event loop
-		Cube cube("grass.png");
+
+		Cube ground("gravel.jpg", 50);
+		ground.scale(glm::vec3(100.0f, 0.001f, 100.0f));
+
+		Cube cube("gravel.jpg", 1);
 		cube.scale(glm::vec3(2.0f, 3.0f, 1.0f));
 		cube.rotate(glm::vec3(45.0f, 3.0f, 1.0f));
-		cube.move(glm::vec3(1.0f, 0.0f, 0.0f));
+		cube.move(glm::vec3(0.0f, 5.0f, 0.0f));
 
 		while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
 		{
@@ -101,6 +105,7 @@ int main()
 			glUniformMatrix4fv(glGetUniformLocation(shaders.get_programID(), "projection"),1, GL_FALSE, &projection[0][0]);
 			
 			cube.draw(shaders.get_programID(), camera);
+			ground.draw(shaders.get_programID(), camera);
 
 
 			glfwPollEvents();

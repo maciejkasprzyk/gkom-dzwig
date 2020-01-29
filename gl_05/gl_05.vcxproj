@@ -92,8 +92,13 @@
     <None Include="gl_05.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="brick.jpg" />
+    <Image Include="grass.jpg" />
     <Image Include="grass.png" />
+    <Image Include="gravel.jpg" />
     <Image Include="iipw.png" />
+    <Image Include="rock.jpg" />
+    <Image Include="stone.jpg" />
     <Image Include="weiti.png" />
   </ItemGroup>
   <ItemGroup>
@@ -101,7 +106,6 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="old_Object.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="shprogram.h" />
   </ItemGroup>

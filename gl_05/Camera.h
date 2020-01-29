@@ -6,6 +6,8 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "Constants.h"
+#include <iostream>
 
 using namespace glm;
 
@@ -20,6 +22,7 @@ class Camera {
 	float mouseSpeed;
 	glm::mat4 ViewMatrix;
 	glm::mat4 ProjectionMatrix;
+	bool firstRender;
 public:
 	Camera::Camera(
 		GLFWwindow* windoww,
@@ -36,6 +39,8 @@ public:
 		initialFoV = initFoV;
 		speed = speedOfCamera;
 		mouseSpeed = speedOfMouse;
+		firstRender = true;
+		
 	};
 
 	glm::mat4 getViewMatrix() {
@@ -61,11 +66,24 @@ public:
 		glfwGetCursorPos(window, &xpos, &ypos);
 
 		// Reset mouse position for next frame
-		glfwSetCursorPos(window, 1024 / 2, 768 / 2);
+		glfwSetCursorPos(window, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 
-		// Compute new orientation
-		horizontalAngle += mouseSpeed * float(1024 / 2 - xpos);
-		verticalAngle += mouseSpeed * float(768 / 2 - ypos);
+		if (!firstRender) {
+			horizontalAngle += mouseSpeed * float(WINDOW_WIDTH / 2 - xpos);
+			verticalAngle += mouseSpeed * float(WINDOW_HEIGHT / 2 - ypos);
+		}
+		else {
+			firstRender = false;
+		}
+
+		// Make sure that when vertical angle is out of bounds, screen doesn't get flipped
+		// 1.57 to 90 stopni w radianach
+		if (verticalAngle > 1.57f)
+			verticalAngle = 1.57f;
+		if (verticalAngle < -1.57f)
+			verticalAngle = -1.57f;
+
+		std::cout << horizontalAngle << "\n";
 
 		glm::vec3 direction(
 			cos(verticalAngle) * sin(horizontalAngle),

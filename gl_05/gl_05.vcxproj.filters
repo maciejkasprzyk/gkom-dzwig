@@ -37,6 +37,21 @@
     <Image Include="grass.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="brick.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="grass.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="rock.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="stone.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="gravel.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shprogram.h">
@@ -46,9 +61,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="old_Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
