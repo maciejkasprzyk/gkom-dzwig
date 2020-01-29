@@ -12,7 +12,7 @@ using namespace std;
 #include <glm/gtc/type_ptr.hpp>
 #include "Constants.h"
 
-GLFWwindow* window;
+
 
 GLfloat* myObjectVertices(unsigned int& size);
 GLuint* myObjectIndices(unsigned int& size);
@@ -49,7 +49,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	try
 	{
-		window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "GKOM - OpenGL 05", nullptr, nullptr);
+		GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "GKOM - OpenGL 05", nullptr, nullptr);
 		if (window == nullptr)
 			throw exception("GLFW window not created");
 
@@ -86,7 +86,7 @@ int main()
 		float initialFoV = 45.0f;
 		float speed = 3.0f;
 		float mouseSpeed = 0.005f;
-		Camera camera = Camera(position, horizontalAngle, verticalAngle, initialFoV, speed, mouseSpeed);
+		Camera camera = Camera(window, position, horizontalAngle, verticalAngle, initialFoV, speed, mouseSpeed);
 
 		// main event loop
 		while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
