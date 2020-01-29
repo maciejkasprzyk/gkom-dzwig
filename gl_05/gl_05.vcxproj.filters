@@ -18,12 +18,6 @@
     <ClCompile Include="gl_05.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="shprogram.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="gl_05.frag">
@@ -34,10 +28,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="iipw.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="weiti.png">
+    <Image Include="gravel.jpg">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -46,6 +37,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

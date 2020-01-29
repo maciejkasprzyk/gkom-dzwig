@@ -85,20 +85,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="gl_05.cpp" />
-    <ClCompile Include="shprogram.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="gl_05.frag" />
     <None Include="gl_05.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="iipw.png" />
-    <Image Include="weiti.png" />
+    <Image Include="gravel.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="Cube.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Primitive.h" />
     <ClInclude Include="shprogram.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
