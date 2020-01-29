@@ -91,13 +91,11 @@ int main()
 		// main event loop
 		while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
 		{
-			
-
+			glClearColor(0.2f, 0.7f, 0.9f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			camera.computeMatricesFromInputs();
 			glfwPollEvents();
-			glClearColor(0.2f, 0.7f, 0.9f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			shaders.Use();
 
@@ -115,8 +113,6 @@ int main()
 
 	return 0;
 }
-
-
 
 
 
