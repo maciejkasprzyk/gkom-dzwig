@@ -87,7 +87,6 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="gl_05.cpp" />
-    <ClCompile Include="Object.cpp" />
     <ClCompile Include="shprogram.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -10,7 +10,7 @@ using namespace std;
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "Defines.h"
+#include "Constants.h"
 
 GLFWwindow* window;
 
@@ -49,7 +49,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	try
 	{
-		window = glfwCreateWindow(WIDTH, HEIGHT, "GKOM - OpenGL 05", nullptr, nullptr);
+		window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "GKOM - OpenGL 05", nullptr, nullptr);
 		if (window == nullptr)
 			throw exception("GLFW window not created");
 
@@ -61,7 +61,7 @@ int main()
 		if (glewInit() != GLEW_OK)
 			throw exception("GLEW Initialization failed");
 
-		glViewport(0, 0, WIDTH, HEIGHT);
+		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
 		GLint nrAttributes;
@@ -101,7 +101,7 @@ int main()
 
 			shaders.Use();
 
-			whyItDoesNotWorkFFS.draw(shaders.get_programID(), camera, WIDTH, HEIGHT);
+			whyItDoesNotWorkFFS.draw(shaders.get_programID(), camera, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 
 			glfwSwapBuffers(window);
