@@ -10,21 +10,12 @@ using namespace std;
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "Defines.h"
+
 GLFWwindow* window;
 
 GLfloat* myObjectVertices(unsigned int& size);
 GLuint* myObjectIndices(unsigned int& size);
-
-const GLuint WIDTH = 800, HEIGHT = 600;
-
-
-//camera
-glm::vec3 position = glm::vec3(0, 0, 0);
-float horizontalAngle = 3.14f;
-float verticalAngle = 0.0f;
-float initialFoV = 45.0f;
-float speed = 3.0f;
-float mouseSpeed = 0.005f;
 
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -47,12 +38,6 @@ ostream& operator<<(ostream& os, const glm::mat4& mx)
 
 int main()
 {
-	{
-		glm::mat4 trans;
-		cout << trans << endl;
-		trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-		cout << trans << endl;
-	}
 	if (glfwInit() != GL_TRUE)
 	{
 		cout << "GLFW initialization failed" << endl;
@@ -64,25 +49,27 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	try
 	{
-
 		window = glfwCreateWindow(WIDTH, HEIGHT, "GKOM - OpenGL 05", nullptr, nullptr);
-
 		if (window == nullptr)
 			throw exception("GLFW window not created");
+
 		glfwMakeContextCurrent(window);
 		glfwSetKeyCallback(window, key_callback);
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		glewExperimental = GL_TRUE;
 		if (glewInit() != GLEW_OK)
 			throw exception("GLEW Initialization failed");
 
 		glViewport(0, 0, WIDTH, HEIGHT);
+		glEnable(GL_DEPTH_TEST);
 
 		GLint nrAttributes;
 		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
 		cout << "Max vertex attributes allowed: " << nrAttributes << std::endl;
 		glGetIntegerv(GL_MAX_TEXTURE_COORDS, &nrAttributes);
 		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
+
 
 		// Build, compile and link shader program
 		ShaderProgram shaders("gl_05.vert", "gl_05.frag");
@@ -93,12 +80,18 @@ int main()
 
 		Object whyItDoesNotWorkFFS = Object("grass.png", 2.0f, 2.0f, 2.0f, 1.0f, 0.0f, 0.0f, verticesMyObject, indicesMyObject, verticesSize, indicesSize);
 
+		glm::vec3 position = glm::vec3(0, 0, 0);
+		float horizontalAngle = 3.14f;
+		float verticalAngle = 0.0f;
+		float initialFoV = 45.0f;
+		float speed = 3.0f;
+		float mouseSpeed = 0.005f;
 		Camera camera = Camera(position, horizontalAngle, verticalAngle, initialFoV, speed, mouseSpeed);
+
 		// main event loop
-		do
+		while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
 		{
-			glEnable(GL_DEPTH_TEST);
-			glDepthFunc(GL_LESS);
+			
 
 
 			camera.computeMatricesFromInputs();
@@ -112,11 +105,7 @@ int main()
 
 
 			glfwSwapBuffers(window);
-
-			glClear(GL_DEPTH_BUFFER_BIT);
-
-		} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
-			glfwWindowShouldClose(window) == 0);
+		} ;
 	}
 	catch (exception ex)
 	{
