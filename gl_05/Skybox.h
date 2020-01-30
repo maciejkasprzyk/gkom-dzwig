@@ -20,22 +20,14 @@ private:
 
 	std::vector<std::string> faces
 	{
-		"sky1.jpg",
-		"sky2.jpg",
-		"sky3.jpg",
-		"sky4.jpg",
-		"sky5.jpg"
+		"front.jpg",
+		"back.jpg",
+		"top.jpg",
+		"bottom.jpg",//bottom
+		"left.jpg",
+		"right.jpg"
 	};
 
-	// loads a cubemap texture from 6 individual texture faces
-// order:
-// +X (right)
-// -X (left)
-// +Y (top)
-// -Y (bottom)
-// +Z (front) 
-// -Z (back)
-// -------------------------------------------------------
 	unsigned int loadCubemap(std::vector<std::string> faces)
 	{
 		unsigned int textureID;

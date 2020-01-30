@@ -134,7 +134,7 @@ int main()
 		{
 			glClearColor(0.2f, 0.7f, 0.9f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+			glDepthFunc(GL_LESS);
 			camera.computeMatricesFromInputs();
 			glm::mat4 view = camera.getViewMatrix();
 			glm::mat4 projection = camera.getProjectionMatrix();
