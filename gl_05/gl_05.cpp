@@ -1,6 +1,7 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include "Camera.h"
+#include "Skybox.h"
 #include "shprogram.h"
 #include "Object.h"
 #include <GLFW/glfw3.h>
@@ -127,6 +128,7 @@ int main()
 		// Crane
 		Crane crane;
 
+		auto skybox = Skybox();
 
 		while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
 		{
@@ -151,6 +153,7 @@ int main()
 			cube.draw(colorShaders.get_programID(), camera);
 			crane.draw(colorShaders.get_programID(), camera);
 
+			skybox.draw(camera.getProjectionMatrix(), camera.getViewMatrix());
 			glfwPollEvents();
 			glfwSwapBuffers(window);
 		} ;
