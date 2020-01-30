@@ -99,9 +99,14 @@ public:
 				}
 			}
 		}
-
-		
-
+	}
+	void rotateTop(bool dir) {
+		if (dir) {
+			objects[0]->rotate2(glm::vec3(0.0f, 0.5f, 0.0f));
+		}
+		else {
+			objects[0]->rotate2(glm::vec3(0.0f, -0.5f, 0.0f));
+		}
 	}
 
 };

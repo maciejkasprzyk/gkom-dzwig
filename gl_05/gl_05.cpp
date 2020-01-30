@@ -37,7 +37,7 @@ ostream& operator<<(ostream& os, const glm::mat4& mx)
 	return os;
 }
 
-void processCraneInteraction(GLFWwindow* window, Cube& cube)
+void processCubeInteraction(GLFWwindow* window, Cube& cube)
 {
 	if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS)
 		cube.scale(glm::vec3(1.0f, 1.05f, 1.0f));
@@ -51,8 +51,19 @@ void processCraneInteraction(GLFWwindow* window, Cube& cube)
 		cube.move(glm::vec3(0.0f, 0.05f, 0.0f));
 	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
 		cube.move(glm::vec3(0.0f, -0.05f, 0.0f));
-	
+	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
+		cube.move(glm::vec3(0.0f, -0.05f, 0.0f));
+
 }
+
+void processCraneInteraction(GLFWwindow* window, Crane& crane)
+{
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+		crane.rotateTop(true);
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+		crane.rotateTop(false);
+}
+
 
 int main()
 {
@@ -118,7 +129,8 @@ int main()
 			glm::mat4 view = camera.getViewMatrix();
 			glm::mat4 projection = camera.getProjectionMatrix();
 
-			processCraneInteraction(window, cube);
+			processCubeInteraction(window, cube);
+			processCraneInteraction(window, crane);
 
 			textureShaders.Use();
 			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "view"),1, GL_FALSE, &view[0][0]);

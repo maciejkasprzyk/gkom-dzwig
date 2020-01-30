@@ -81,7 +81,5 @@ public:
 
 		this->rotate2(glm::vec3(0.0f, 0.0f, 90.0f));
 		this->move2(glm::vec3(8 * dbase, 10.0f, -dbase / 2));
-
-
 	}
 };
