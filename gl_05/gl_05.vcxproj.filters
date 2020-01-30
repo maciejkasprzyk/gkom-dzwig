@@ -24,6 +24,7 @@
     <ClInclude Include="Branch.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="FenceSegment.h" />
+    <ClInclude Include="Fence.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="back.jpg" />

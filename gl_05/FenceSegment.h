@@ -2,7 +2,6 @@
 
 #include "Cube.h"
 #include "Compound.h"
-#include <vector>
 
 #define BLOCK_HEIGHT 0.1
 #define BLOCK_WIDTH 0.2
@@ -17,16 +16,16 @@
 
 class FenceSegment : public Compound {
 public:
-	FenceSegment(glm::vec3 )
+	FenceSegment()
 	{
 		auto bottom = std::unique_ptr<Cube>(new Cube(ORANGE));
 		auto top = std::unique_ptr<Cube>(new Cube(ORANGE));
 
-		bottom->move(glm::vec3(CENTER_X, BLOCK_HEIGHT/2, CENTER_Z));
+		bottom->move(glm::vec3(0.0f, BLOCK_HEIGHT/2, 0.0f));
 		bottom->scale(glm::vec3(BLOCK_WIDTH, BLOCK_HEIGHT, getDepth()));
 		addObject(std::move(bottom));
 
-		top->move(glm::vec3(CENTER_X, FENCE_HEIGHT, CENTER_Z));
+		top->move(glm::vec3(0.0f, FENCE_HEIGHT, 0.0f));
 		top->scale(glm::vec3(BLOCK_WIDTH, BLOCK_HEIGHT, getDepth()));
 		addObject(std::move(top));
 
@@ -34,12 +33,31 @@ public:
 		for (int i = 0; i < N_OF_BARS; ++i)
 		{
 			bars[i] = std::unique_ptr<Cube>(new Cube(BLACK));
-			bars[i]->move(glm::vec3(CENTER_X, getBarPos(), CENTER_Z - getOffset() + i * SPACE));
+			bars[i]->move(glm::vec3(0.0f, getBarPos(),-getOffset() + i * SPACE));
 			bars[i]->scale(glm::vec3(BAR_WIDTH, getBarHeight(), BAR_DEPTH));
 			addObject(std::move(bars[i]));
 		}
 
 	}
+
+	float getDepth()
+	{
+		return N_OF_BARS * SPACE + SPACE;
+	}
+
+	void rotate90()
+	{
+		for (int i = 0; i < 2; ++i)
+		{
+			objects[i]->rotate(glm::vec3(0.0f, 90.0f, 0.0f));
+		}
+
+		for (int i = 2; i < N_OF_BARS+2; ++i)
+		{
+			objects[i]->move(glm::vec3(-getOffset() + (i - 2) * SPACE, 0.0f, getOffset() - (i - 2) * SPACE));
+		}
+	}
+	//-getOffset() + (i - 2) * SPACE
 private:
 	float getBarPos()
 	{
@@ -48,10 +66,6 @@ private:
 	float getBarHeight()
 	{
 		return FENCE_HEIGHT - 3 * BLOCK_HEIGHT / 2;
-	}
-	float getDepth()
-	{
-		return N_OF_BARS * SPACE + SPACE;
 	}
 	float getOffset()
 	{
