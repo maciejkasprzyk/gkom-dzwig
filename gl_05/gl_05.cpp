@@ -126,6 +126,26 @@ int main()
 		Cube cube(YELLOW);
 		cube.move(glm::vec3(10.0f, -3.0f, 5.0f));
 
+		//Counterweights
+		Cube concrete1("betonowy.jpg", 1);
+		Cube concrete2("betonowy.jpg", 1);
+		Cube concrete3("betonowy.jpg", 1);
+		Cube concrete4("betonowy.jpg", 1);
+
+		concrete1.scale(glm::vec3(1.3f, 0.2f, 0.4f));
+		concrete1.move(glm::vec3(0.0f, 0.2f, 0.5f));
+
+		concrete2.scale(glm::vec3(1.3f, 0.2f, 0.4f));
+		concrete2.move(glm::vec3(0.0f, 0.2f, -0.5f));
+
+		concrete3.scale(glm::vec3(1.3f, 0.2f, 0.4f));
+		concrete3.move(glm::vec3(0.0f, 0.4f, 0.5f));
+		concrete3.rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
+
+		concrete4.scale(glm::vec3(1.3f, 0.2f, 0.4f));
+		concrete4.move(glm::vec3(0.0f, 0.4f, -0.5f));
+		concrete4.rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
+
 		//Base of crane
 		CraneBase base;
 		
@@ -150,6 +170,10 @@ int main()
 			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "view"),1, GL_FALSE, &view[0][0]);
 			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "projection"),1, GL_FALSE, &projection[0][0]);
 			ground.draw(textureShaders.get_programID(), camera);
+			concrete1.draw(textureShaders.get_programID(), camera);
+			concrete2.draw(textureShaders.get_programID(), camera);
+			concrete3.draw(textureShaders.get_programID(), camera);
+			concrete4.draw(textureShaders.get_programID(), camera);
 
 			colorShaders.Use();
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
