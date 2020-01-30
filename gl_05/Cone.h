@@ -61,6 +61,7 @@ private:
 		rotationZ = glm::rotate(rotationZ, glm::radians(360.0f / nrSides), glm::vec3(0.0f, 1.0f, 0.0f));
 
 		//wektor z 2. wierzcho³kiem
+		float xd = 0;
 		glm::vec4 currentV = glm::vec4(radius, 0.0f, 0.0f, 1.0f);
 		for (int i = -1; i < nrSides - 1; i++) {
 			currentV = rotationZ * currentV;
@@ -72,9 +73,10 @@ private:
 			//normals
 			vertices[27 + i * 8] = -currentV[0];
 			vertices[29 + i * 8] = -currentV[2];
-			//texture
-			if (i % 2 == 0)
-				vertices[30 + i * 8] = (1.0f * 6) / nrSides;
+	
+			vertices[30 + i * 8] = xd;
+			xd += reps/nrSides;
+
 		}
 		return vertices;
 	}

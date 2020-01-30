@@ -38,7 +38,7 @@ public:
 		addObject(std::move(leaf3));
 		addObject(std::move(leaf4));
 		addObject(std::move(leaf5));
-		auto textNum = 1;
+		auto textNum = 4;
 		auto name = "wood1.jpg";
 		auto branchBig = std::unique_ptr<Cone>(new Cone(name, textNum));
 		auto branchSmall1 = std::unique_ptr<Cone>(new Cone(name, textNum));

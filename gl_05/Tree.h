@@ -39,7 +39,7 @@ public:
 		
 		
 
-		auto stem = std::unique_ptr<Cone>(new Cone(GREY));
+		auto stem = std::unique_ptr<Cone>(new Cone("wood1.jpg", 4));
 		stem->scale(glm::vec3(0.5f, 3.05f, 0.5f));
 
 

@@ -11,8 +11,8 @@ class Leaf : public Compound
 {
 public:
 	Leaf() {
-		auto cone1 = std::unique_ptr<Cone>(new Cone("leaves.jpg", 0.5));
-		auto cone2 = std::unique_ptr<Cone>(new Cone("leaves.jpg", 0.5));
+		auto cone1 = std::unique_ptr<Cone>(new Cone("leaves.jpg", 1));
+		auto cone2 = std::unique_ptr<Cone>(new Cone("leaves.jpg", 1));
 		cone2->rotate(glm::vec3(180.0f, 0.0f, 0.0f));
 
 		auto s = 0.3f;
