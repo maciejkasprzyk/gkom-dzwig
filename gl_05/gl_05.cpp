@@ -39,24 +39,19 @@ ostream& operator<<(ostream& os, const glm::mat4& mx)
 
 void processCraneInteraction(GLFWwindow* window, Cube& cube)
 {
-	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
-		cube.scale(glm::vec3(1.01f, 1.0f, 1.0f));
-	if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
-		cube.scale(glm::vec3(1.0f, 1.01f, 1.0f));
-	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
-		cube.scale(glm::vec3(1.0f, 1.0f, 1.01f));
-	if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS)
+		cube.scale(glm::vec3(1.0f, 1.05f, 1.0f));
+	if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
+		cube.scale(glm::vec3(1.0, 0.9f, 1.0f));
+	if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
 		cube.rotate(glm::vec3(1.0f, 0.0f, 0.0f));
-	if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
-		cube.rotate(glm::vec3(0.0f, 1.0f, 0.0f));
-	if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
-		cube.rotate(glm::vec3(0.0f, 0.0f, 1.0f));
-	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
-		cube.move(glm::vec3(0.05f, 0.0f, 0.0f));
-	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+		cube.rotate(glm::vec3(-1.0f, 0.0f, 0.0f));
+	if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
 		cube.move(glm::vec3(0.0f, 0.05f, 0.0f));
-	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
-		cube.move(glm::vec3(0.0f, 0.0f, 0.05f));
+	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
+		cube.move(glm::vec3(0.0f, -0.05f, 0.0f));
+	
 }
 
 int main()
@@ -87,7 +82,6 @@ int main()
 		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
-
 		// camera setup
 		glm::vec3 positionVec = glm::vec3(-3, 2, -3);
 		float horizontalAngle = 0.785f;
@@ -105,11 +99,11 @@ int main()
 		// Ground
 		Cube ground("gravel.jpg", 50);
 		ground.scale(glm::vec3(100.0f, 1.0f, 100.0f));
-		ground.move(glm::vec3(0.0f, -1.0f, 0.0f));
+		ground.move(glm::vec3(0.0f, -0.5f, 0.0f)); // podloga jest dokladnie na y = 0.0
 
 		// Cube
 		Cube cube(YELLOW);
-		cube.move(glm::vec3(10.0f, 3.0f, 5.0f));
+		cube.move(glm::vec3(10.0f, -3.0f, 5.0f));
 		
 		// Crane
 		Crane crane;

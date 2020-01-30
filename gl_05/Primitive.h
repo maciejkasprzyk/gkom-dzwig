@@ -19,6 +19,10 @@ class Primitive : public Object
 	virtual void initIndicies() = 0;
 
 	glm::mat4 model;
+	// zrobimy oddzielna macierz na skalowanie, tak zeby moc dac skalowanie zawsze jako pierwsza operacje
+	// (pierwsza z punktu widzenia mnozenia macierzy, w naszym kodzie bedzie ostatnia bo to na odwrot)
+	// da nam to swobode mieszania ruchow rotacji i skalowania przy najbardziej intuicyjnym zachowaniu tych opracji
+	glm::mat4 scaling;
 	GLuint VAO, VBO, EBO;
 
 	bool textured;
@@ -35,7 +39,8 @@ protected:
 public:
 
 	Primitive() :
-		model(glm::mat4(1.0f))
+		model(glm::mat4(1.0f)),
+		scaling(glm::mat4(1.0f))
 	{}
 
 	Primitive(string textureName) : Primitive() {
@@ -126,7 +131,9 @@ public:
 
 	void draw(int shaderId, Camera camera) override
 	{
-		glUniformMatrix4fv(glGetUniformLocation(shaderId, "model"), 1, GL_FALSE, &model[0][0]);
+		glm::mat4 modelTemp = model * scaling;
+
+		glUniformMatrix4fv(glGetUniformLocation(shaderId, "model"), 1, GL_FALSE, &modelTemp[0][0]);
 
 		if (textured) {
 			glActiveTexture(GL_TEXTURE0);
@@ -151,7 +158,7 @@ public:
 
 	void scale(const glm::vec3& vector) override
 	{
-		model = glm::scale(model, vector);
+		scaling = glm::scale(scaling, vector);
 	}
 
 	void rotate(const glm::vec3& vector) override
