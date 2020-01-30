@@ -4,13 +4,13 @@ in vec3 Normal;
 in vec2 TexCoord;
 
 //najmocniejsze
-uniform vec3 lightDir = vec3(1.0,-1.0,0.0);
+uniform vec3 lightDir = vec3(-1.0,-1.0,0.0);
 //boczne srednie
-uniform vec3 lightDir2 = vec3(0.0,-1.0,1.0);
+uniform vec3 lightDir2 = vec3(0.0,-1.0,-1.0);
 //boczne slabe
-uniform vec3 lightDir3 = vec3(0.0,-1.0,-1.0);
+uniform vec3 lightDir3 = vec3(0.0,-1.0,1.0);
 //tylne bardzo slabe
-uniform vec3 lightDir4 = vec3(-1.0, 0.0,0.0);
+uniform vec3 lightDir4 = vec3(1.0, 0.0,0.0);
 
 uniform vec3 lightColor = vec3(1.0,1.0,1.0);
 

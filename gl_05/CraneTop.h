@@ -101,23 +101,23 @@ public:
 
 	}
 
-	void forward() {
-		objects[0]->move(glm::vec3(0.0f, 0.05f, 0.0f));
-		objects[1]->move(glm::vec3(0.0f, 0.05f, 0.0f));
+	void forward(float deltatime) {
+		objects[0]->move(glm::vec3(0.0f, 0.05f, 0.0f) * deltatime);
+		objects[1]->move(glm::vec3(0.0f, 0.05f, 0.0f) * deltatime);
 	}
-	void backwards() {
-		objects[0]->move(glm::vec3(0.0f, -0.05f, 0.0f));
-		objects[1]->move(glm::vec3(0.0f, -0.05f, 0.0f));
+	void backwards(float deltatime) {
+		objects[0]->move(glm::vec3(0.0f, -0.05f, 0.0f) * deltatime);
+		objects[1]->move(glm::vec3(0.0f, -0.05f, 0.0f) * deltatime);
 	}
-	void down() {
+	void down(float deltatime) {
 		objects[1]->move2(glm::vec3(0.0f, -10.0f, 0.0f));
-		objects[1]->scale2(glm::vec3(1.0f, 1.02f, 1.0f));
+		objects[1]->scale2(glm::vec3(1.0f, 1.02f * deltatime, 1.0f));
 		objects[1]->move2(glm::vec3(0.0f, 10.0f, 0.0f));
 
 	}
-	void up() {
+	void up(float deltatime) {
 		objects[1]->move2(glm::vec3(0.0f, -10.0f, 0.0f));
-		objects[1]->scale2(glm::vec3(1.0f, 0.98f, 1.0f));
+		objects[1]->scale2(glm::vec3(1.0f, 0.98f * deltatime, 1.0f));
 		objects[1]->move2(glm::vec3(0.0f, 10.0f, 0.0f));
 	}
 

@@ -8,9 +8,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "Camera.h"
+
 #include <iostream>
-
-
 using namespace std;
 
 class Primitive : public Object
@@ -60,7 +59,7 @@ public:
 		glDeleteBuffers(1, &EBO);
 	}
 
-	
+
 	// nie moge uzyc metody wirtualnej w konstruktorze
 	void init() {
 		initVerticies();
@@ -125,6 +124,7 @@ public:
 
 			glBindTexture(GL_TEXTURE_2D, 0);
 
+			
 			textureId = texture;
 		}
 	}
@@ -146,7 +146,7 @@ public:
 
 
 		glBindVertexArray(VAO);
-		
+
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
@@ -167,7 +167,7 @@ public:
 	}
 	void scale2(const glm::vec3& vector) override
 	{
-		 model = glm::scale(glm::mat4(1.0f), vector) * model;
+		model = glm::scale(glm::mat4(1.0f), vector) * model;
 	}
 
 	void rotate(const glm::vec3& vector) override
@@ -176,13 +176,12 @@ public:
 		model = glm::rotate(model, glm::radians(vector.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(vector.z), glm::vec3(0.0f, 0.0f, 1.0f));
 	}
-	
+
 	void rotate2(const glm::vec3& vector) override
 	{
 		model = glm::rotate(glm::mat4(1.0f), glm::radians(vector.x), glm::vec3(1.0f, 0.0f, 0.0f)) * model;
 		model = glm::rotate(glm::mat4(1.0f), glm::radians(vector.y), glm::vec3(0.0f, 1.0f, 0.0f)) * model;
 		model = glm::rotate(glm::mat4(1.0f), glm::radians(vector.z), glm::vec3(0.0f, 0.0f, 1.0f)) * model;
 	}
-
 
 };
