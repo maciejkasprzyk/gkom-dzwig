@@ -34,6 +34,11 @@ public:
 			o->scale(vector);
 		}
 	}
+	void scale2(const glm::vec3& vector) override {
+		for (auto& o : objects) {
+			o->scale(vector);
+		}
+	}
 	void rotate(const glm::vec3& vector) override {
 		for (auto& o : objects) {
 			o->rotate(vector);

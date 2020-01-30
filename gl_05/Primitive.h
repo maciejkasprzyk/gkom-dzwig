@@ -165,6 +165,10 @@ public:
 	{
 		scaling = glm::scale(scaling, vector);
 	}
+	void scale2(const glm::vec3& vector) override
+	{
+		 model = glm::scale(glm::mat4(1.0f), vector) * model;
+	}
 
 	void rotate(const glm::vec3& vector) override
 	{

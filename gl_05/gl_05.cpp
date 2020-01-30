@@ -66,6 +66,10 @@ void processCraneInteraction(GLFWwindow* window, Crane& crane)
 		crane.forward();
 	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
 		crane.backwards();
+	if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
+		crane.up();
+	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+		crane.down();
 }
 
 

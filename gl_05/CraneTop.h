@@ -17,6 +17,14 @@ public:
 
 		addObject(std::move(box));
 
+		// lina
+		auto rope = std::unique_ptr<Cube>(new Cube(GREY));
+		rope->scale(glm::vec3(5.0f, 0.02f, 0.01f));
+		rope->move(glm::vec3(0.0f, height / 2, dbase/2));
+		rope->move(glm::vec3(-2.5f, 0.02f, 0.01f));
+
+		addObject(std::move(rope));
+
 		std::unique_ptr<Cube> stem[3]; // stem znaczy trzon
 		std::generate(
 			begin(stem),
@@ -89,13 +97,27 @@ public:
 
 		this->rotate2(glm::vec3(0.0f, 0.0f, 90.0f));
 		this->move2(glm::vec3(8 * dbase, 10.0f, -dbase / 2));
+
 	}
 
 	void forward() {
 		objects[0]->move(glm::vec3(0.0f, 0.05f, 0.0f));
+		objects[1]->move(glm::vec3(0.0f, 0.05f, 0.0f));
 	}
 	void backwards() {
 		objects[0]->move(glm::vec3(0.0f, -0.05f, 0.0f));
+		objects[1]->move(glm::vec3(0.0f, -0.05f, 0.0f));
+	}
+	void down() {
+		objects[1]->move2(glm::vec3(0.0f, -10.0f, 0.0f));
+		objects[1]->scale2(glm::vec3(1.0f, 1.02f, 1.0f));
+		objects[1]->move2(glm::vec3(0.0f, 10.0f, 0.0f));
+
+	}
+	void up() {
+		objects[1]->move2(glm::vec3(0.0f, -10.0f, 0.0f));
+		objects[1]->scale2(glm::vec3(1.0f, 0.98f, 1.0f));
+		objects[1]->move2(glm::vec3(0.0f, 10.0f, 0.0f));
 	}
 
 };

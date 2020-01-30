@@ -114,5 +114,11 @@ public:
 	void backwards() {
 		dynamic_cast<CraneTop&>(*objects[0]).backwards();
 	}
+	void up() {
+		dynamic_cast<CraneTop&>(*objects[0]).up();
+	}
+	void down() {
+		dynamic_cast<CraneTop&>(*objects[0]).down();
+	}
 
 };
