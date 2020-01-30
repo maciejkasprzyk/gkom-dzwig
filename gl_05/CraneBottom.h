@@ -13,6 +13,7 @@ class CraneBottom : public Compound
 public:
 	CraneBottom() {
 
+
 		// pionowa czesc
 		std::unique_ptr<Cube> stem[4]; // stem znaczy trzon
 		std::generate(
@@ -94,6 +95,56 @@ public:
 				}
 			}
 		}
+		
+		//budka
+		float angle = 10.0f;
+
+		auto budka = std::unique_ptr<Cube>(new Cube(YELLOW));
+		budka->scale(glm::vec3(0.05f, 2.0f, 0.05f));
+		budka->move(glm::vec3(0.0f, 1.0f, 0.0f));
+		budka->rotate2(glm::vec3(0.0f, 0.0f, angle));
+		budka->rotate2(glm::vec3(0.0f, 45.0f, 0.0f));
+		budka->move2(glm::vec3(dbase/2, 0.0f, -dbase/2));
+		budka->move2(glm::vec3(0.0f, 10.0f , 0.0f));
+
+
+		addObject(std::move(budka));
+
+		auto budka2 = std::unique_ptr<Cube>(new Cube(YELLOW));
+		budka2->scale(glm::vec3(0.05f, 2.0f, 0.05f));
+		budka2->move(glm::vec3(0.0f, 1.0f, 0.0f));
+		budka2->rotate2(glm::vec3(0.0f, 0.0f, angle));
+		budka2->rotate2(glm::vec3(0.0f, 45.0f, 0.0f));
+		budka2->move2(glm::vec3(dbase / 2, 0.0f, -dbase / 2));
+		budka2->move2(glm::vec3(0.0f, 10.0f, 0.0f));
+		budka2->rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
+
+		addObject(std::move(budka2));
+
+		auto budka3 = std::unique_ptr<Cube>(new Cube(YELLOW));
+		budka3->scale(glm::vec3(0.05f, 2.0f, 0.05f));
+		budka3->move(glm::vec3(0.0f, 1.0f, 0.0f));
+		budka3->rotate2(glm::vec3(0.0f, 0.0f, angle));
+		budka3->rotate2(glm::vec3(0.0f, 45.0f, 0.0f));
+		budka3->move2(glm::vec3(dbase / 2, 0.0f, -dbase / 2));
+		budka3->move2(glm::vec3(0.0f, 10.0f, 0.0f));
+		budka3->rotate2(glm::vec3(0.0f, -90.0f, 0.0f));
+
+		addObject(std::move(budka3));
+
+		auto budka4 = std::unique_ptr<Cube>(new Cube(YELLOW));
+		budka4->scale(glm::vec3(0.05f, 2.0f, 0.05f));
+		budka4->move(glm::vec3(0.0f, 1.0f, 0.0f));
+		budka4->rotate2(glm::vec3(0.0f, 0.0f, angle));
+		budka4->rotate2(glm::vec3(0.0f, 45.0f, 0.0f));
+		budka4->move2(glm::vec3(dbase / 2, 0.0f, -dbase / 2));
+		budka4->move2(glm::vec3(0.0f, 10.0f, 0.0f));
+		budka4->rotate2(glm::vec3(0.0f, 180.0f, 0.0f));
+
+
+		addObject(std::move(budka4));
+
+
 	}
 };
 

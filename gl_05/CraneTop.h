@@ -27,12 +27,15 @@ public:
 		addObject(std::move(counterweight2));
 		addObject(std::move(counterweight3));
 
+
 		// przyczep na line
 		auto box = std::unique_ptr<Cube>(new Cube(YELLOW));
 		box->scale(glm::vec3(0.1f, 0.5f, 0.5f));
 		box->move(glm::vec3(0.0f, height/2, dbase/2));
 
 		addObject(std::move(box));
+
+		
 
 		// lina
 		auto rope = std::unique_ptr<Cube>(new Cube(GREY));
