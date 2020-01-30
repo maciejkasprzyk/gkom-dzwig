@@ -85,33 +85,52 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cone.cpp" />
     <ClCompile Include="gl_05.cpp" />
+    <ClCompile Include="Leaf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="color.frag" />
     <None Include="color.vert" />
+    <None Include="lamp.frag" />
+    <None Include="lamp.vect" />
+    <None Include="lights.frag" />
+    <None Include="lights.vect" />
+    <None Include="skybox.frag" />
+    <None Include="skybox.vert" />
     <None Include="texture.frag" />
     <None Include="texture.vert" />
   </ItemGroup>
   <ItemGroup>
+
     <Image Include="back.jpg" />
     <Image Include="bottom1.jpg" />
     <Image Include="front.jpg" />
     <Image Include="beton.jpg" />
     <Image Include="betonowy.jpg" />
     <Image Include="gravel.jpg" />
+    <Image Include="left.jpg" />
+    <Image Include="right.jpg" />
+    <Image Include="top.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Compound.h" />
+    <ClInclude Include="Cone.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Crane.h" />
+    <ClInclude Include="CraneBottom.h" />
     <ClInclude Include="CraneBase.h" />
     <ClInclude Include="CraneTop.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="Leaf.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="shprogram.h" />
+    <ClInclude Include="Skybox.h" />
+    <ClInclude Include="TextureHandler.h" />
+    <ClInclude Include="Branch.h" />
+    <ClInclude Include="Tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

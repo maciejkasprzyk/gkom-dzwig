@@ -2,6 +2,8 @@
 #include <GL/glew.h>
 #include "Camera.h"
 #include "Skybox.h"
+#include "Leaf.h"
+#include "Tree.h"
 #include "shprogram.h"
 #include "Object.h"
 #include <GLFW/glfw3.h>
@@ -14,12 +16,8 @@ using namespace std;
 #include "Constants.h"
 #include "Cube.h"
 #include "Crane.h"
+#include "Cone.h"
 #include "CraneBase.h"
-
-
-GLfloat* myObjectVertices(unsigned int& scaleVec);
-GLuint* myObjectIndices(unsigned int& scaleVec);
-
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -39,44 +37,47 @@ ostream& operator<<(ostream& os, const glm::mat4& mx)
 	return os;
 }
 
-void processCubeInteraction(GLFWwindow* window, Cube& cube)
+void processCubeInteraction(GLFWwindow* window, Cube& cube, float deltaTime)
 {
 	if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS)
-		cube.scale(glm::vec3(1.0f, 1.05f, 1.0f));
+		cube.scale(glm::vec3(1.0f, 1.05f * deltaTime, 1.0f));
 	if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
-		cube.scale(glm::vec3(1.0, 0.9f, 1.0f));
+		cube.scale(glm::vec3(1.0, 0.9f * deltaTime, 1.0f));
 	if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
-		cube.rotate(glm::vec3(1.0f, 0.0f, 0.0f));
+		cube.rotate(glm::vec3(1.0f * deltaTime, 0.0f, 0.0f));
 	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-		cube.rotate(glm::vec3(-1.0f, 0.0f, 0.0f));
+		cube.rotate(glm::vec3(-1.0f * deltaTime, 0.0f, 0.0f));
 	if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
-		cube.move(glm::vec3(0.0f, 0.05f, 0.0f));
+		cube.move(glm::vec3(0.0f, 0.05f * deltaTime, 0.0f));
 	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
-		cube.move(glm::vec3(0.0f, -0.05f, 0.0f));
+		cube.move(glm::vec3(0.0f, -0.05f * deltaTime, 0.0f));
 	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
-		cube.move(glm::vec3(0.0f, -0.05f, 0.0f));
+		cube.move(glm::vec3(0.0f, -0.05f * deltaTime, 0.0f));
 
 }
 
-void processCraneInteraction(GLFWwindow* window, Crane& crane)
+void processCraneInteraction(GLFWwindow* window, Crane& crane, float deltaTime)
 {
 	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-		crane.rotateTop(true);
+		crane.rotateTop(true, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-		crane.rotateTop(false);
+		crane.rotateTop(false, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
-		crane.forward();
+		crane.forward(deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
-		crane.backwards();
+		crane.backwards(deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
-		crane.up();
+		crane.up(deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
-		crane.down();
+		crane.down(deltaTime);
 }
 
 
 int main()
 {
+	float deltaTime = 0.0f;
+	float lastFrame = 0.0f;
+
 	if (glfwInit() != GL_TRUE)
 	{
 		cout << "GLFW initialization failed" << endl;
@@ -115,13 +116,15 @@ int main()
 		//shaders
 		ShaderProgram textureShaders("texture.vert", "texture.frag");
 		ShaderProgram colorShaders("color.vert", "color.frag");
-
+		ShaderProgram lightningShader("lights.vect", "lights.frag");
+		ShaderProgram lampShader("lamp.vect", "lamp.frag");
 		// -------------- objects -----------------
 		// Ground
 		Cube ground("gravel.jpg", 50);
 		ground.scale(glm::vec3(100.0f, 1.0f, 100.0f));
 		ground.move(glm::vec3(0.0f, -0.5f, 0.0f)); // podloga jest dokladnie na y = 0.0
-
+		Cone cone(GREY);
+		cone.move(glm::vec3(0.0f, 3.0f, 0.0f));
 		// Cube
 		Cube cube(YELLOW);
 		cube.move(glm::vec3(10.0f, -3.0f, 5.0f));
@@ -152,19 +155,45 @@ int main()
 		// Crane
 		Crane crane;
 
+		Tree tree;
+		tree.move2(glm::vec3(4.0f, 0.0f, 0.0f));
+		//skybox
 		auto skybox = Skybox();
+		//lights
+		auto pointLightPositions = {
+			glm::vec3(0.7f,  0.2f,  2.0f),
+			glm::vec3(2.3f, -3.3f, -4.0f),
+			glm::vec3(-4.0f,  2.0f, -12.0f),
+			glm::vec3(0.0f,  0.0f, -3.0f)
+		};
+		unsigned int diffuseMap = loadTexture("gravel.jpg");
+		unsigned int specularMap = loadTexture("gravel.jpg");
+
+		lightningShader.Use();
+		lightningShader.setInt("material.diffuse", 0);
+		lightningShader.setInt("material.specular", 1);
 
 		while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
 		{
+			float currentFrame = glfwGetTime();
+			deltaTime = (currentFrame - lastFrame) * 60.0f;
+			lastFrame = currentFrame;
+			std::cout << deltaTime << '\n';
+
 			glClearColor(0.2f, 0.7f, 0.9f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			lightningShader.Use();
+			lightningShader.setVec3("viewPos", camera.getPosition());
+			lightningShader.setFloat("material.shininess", 32.0f);
+
 			glDepthFunc(GL_LESS);
 			camera.computeMatricesFromInputs();
 			glm::mat4 view = camera.getViewMatrix();
 			glm::mat4 projection = camera.getProjectionMatrix();
 
-			processCubeInteraction(window, cube);
-			processCraneInteraction(window, crane);
+			processCubeInteraction(window, cube, deltaTime);
+			processCraneInteraction(window, crane, deltaTime);
 
 			textureShaders.Use();
 			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "view"),1, GL_FALSE, &view[0][0]);
@@ -180,9 +209,8 @@ int main()
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
 			cube.draw(colorShaders.get_programID(), camera);
 			crane.draw(colorShaders.get_programID(), camera);
+			tree.draw(colorShaders.get_programID(), camera);
 			base.draw(colorShaders.get_programID(), camera);
-			
-
 			skybox.draw(camera.getProjectionMatrix(), camera.getViewMatrix());
 			glfwPollEvents();
 			glfwSwapBuffers(window);

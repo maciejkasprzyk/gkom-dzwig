@@ -18,6 +18,12 @@
     <ClCompile Include="gl_05.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Cone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="texture.frag">
@@ -32,11 +38,45 @@
     <None Include="color.vert">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="lights.vect">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="lights.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="lamp.vect">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="lamp.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="skybox.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="skybox.vert">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="gravel.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="back.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bottom1.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="front.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="left.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="right.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="top.jpg">
     <Image Include="beton.jpg">
       <Filter>Resource Files</Filter>
     </Image>
@@ -72,6 +112,25 @@
     <ClInclude Include="CraneTop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TextureHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Branch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CraneBottom.h">
     <ClInclude Include="CraneBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
