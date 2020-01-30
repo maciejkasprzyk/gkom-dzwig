@@ -102,14 +102,11 @@
     <None Include="texture.vert" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Image Include="back.jpg" />
     <Image Include="bottom1.jpg" />
     <Image Include="front.jpg" />
-=======
     <Image Include="beton.jpg" />
     <Image Include="betonowy.jpg" />
->>>>>>> master
     <Image Include="gravel.jpg" />
     <Image Include="left.jpg" />
     <Image Include="right.jpg" />

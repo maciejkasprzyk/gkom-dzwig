@@ -18,6 +18,7 @@ using namespace std;
 #include "Crane.h"
 #include "Cone.h"
 #include "CraneBase.h"
+#include "TextureHandler.h"
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
