@@ -156,6 +156,11 @@ public:
 		model = translate(model, vector);
 	}
 
+	void move2(const glm::vec3& vector) override
+	{
+		model = translate(glm::mat4(1.0f), vector) * model;
+	}
+
 	void scale(const glm::vec3& vector) override
 	{
 		scaling = glm::scale(scaling, vector);
@@ -166,6 +171,13 @@ public:
 		model = glm::rotate(model, glm::radians(vector.x), glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(vector.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(vector.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	}
+	
+	void rotate2(const glm::vec3& vector) override
+	{
+		model = glm::rotate(glm::mat4(1.0f), glm::radians(vector.x), glm::vec3(1.0f, 0.0f, 0.0f)) * model;
+		model = glm::rotate(glm::mat4(1.0f), glm::radians(vector.y), glm::vec3(0.0f, 1.0f, 0.0f)) * model;
+		model = glm::rotate(glm::mat4(1.0f), glm::radians(vector.z), glm::vec3(0.0f, 0.0f, 1.0f)) * model;
 	}
 
 

@@ -24,6 +24,11 @@ public:
 			o->move(vector);
 		}
 	}
+	void move2(const glm::vec3& vector) override {
+		for (auto& o : objects) {
+			o->move2(vector);
+		}
+	}
 	void scale(const glm::vec3& vector) override {
 		for (auto& o : objects) {
 			o->scale(vector);
@@ -32,6 +37,11 @@ public:
 	void rotate(const glm::vec3& vector) override {
 		for (auto& o : objects) {
 			o->rotate(vector);
+		}
+	}
+	void rotate2(const glm::vec3& vector) override {
+		for (auto& o : objects) {
+			o->rotate2(vector);
 		}
 	}
 
