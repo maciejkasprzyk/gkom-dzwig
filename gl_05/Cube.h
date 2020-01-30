@@ -9,15 +9,22 @@ public:
 	GLfloat reps;
 	Cube(string textureName, GLfloat texture_repeats) : Primitive(textureName) {
 		this->reps = texture_repeats * 1.0f;
-		init(); }
+		init(); 
+	}
+
+	Cube(glm::vec4 color) : Primitive(color) {
+		this->reps = 0.0f; // to i tak jest nieuzywane
+		init();
+	}
+
 
 private:
 	void initVerticies() override {
 		vector <GLfloat> vertices = {
-			 0.5f,  0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	reps,  0.0f,	//0
-			-0.5f,  0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//1
-			-0.5f, -0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	0.0f,  reps,	//2
-			0.5f, -0.5f,  -0.5f,		0.0f, 0.0f, 0.0f,	reps,  reps,	//3
+			 0.5f,  0.5f,  -0.5f,		0.0f, 0.0f, 1.0f,	reps,  0.0f,	//0
+			-0.5f,  0.5f,  -0.5f,		0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//1
+			-0.5f, -0.5f,  -0.5f,		0.0f, 0.0f, 1.0f,	0.0f,  reps,	//2
+			0.5f, -0.5f,  -0.5f,		0.0f, 0.0f, 1.0f,	reps,  reps,	//3
 			-0.5f, -0.5f,  0.5f,		0.0f, 0.0f, -1.0f,	0.0f,  0.0f,	//4
 			-0.5f,  0.5f,  0.5f,		0.0f, 0.0f, -1.0f,	0.0f,  reps,	//5
 			0.5f,  0.5f,  0.5f,			0.0f, 0.0f, -1.0f,	reps,  reps,	//6

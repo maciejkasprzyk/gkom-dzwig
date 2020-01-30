@@ -88,15 +88,20 @@
     <ClCompile Include="gl_05.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="gl_05.frag" />
-    <None Include="gl_05.vert" />
+    <None Include="color.frag" />
+    <None Include="color.vert" />
+    <None Include="texture.frag" />
+    <None Include="texture.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="gravel.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Compound.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="Crane.h" />
+    <ClInclude Include="CraneTop.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Primitive.h" />

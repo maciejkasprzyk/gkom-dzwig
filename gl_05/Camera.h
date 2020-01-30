@@ -83,8 +83,6 @@ public:
 		if (verticalAngle < -1.57f)
 			verticalAngle = -1.57f;
 
-		std::cout << horizontalAngle << "\n";
-
 		glm::vec3 direction(
 			cos(verticalAngle) * sin(horizontalAngle),
 			sin(verticalAngle),
