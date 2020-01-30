@@ -36,6 +36,28 @@ ostream& operator<<(ostream& os, const glm::mat4& mx)
 	return os;
 }
 
+void processCraneInteraction(GLFWwindow* window, Cube& cube)
+{
+	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
+		cube.scale(glm::vec3(1.01f, 1.0f, 1.0f));
+	if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
+		cube.scale(glm::vec3(1.0f, 1.01f, 1.0f));
+	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
+		cube.scale(glm::vec3(1.0f, 1.0f, 1.01f));
+	if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS)
+		cube.rotate(glm::vec3(1.0f, 0.0f, 0.0f));
+	if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
+		cube.rotate(glm::vec3(0.0f, 1.0f, 0.0f));
+	if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
+		cube.rotate(glm::vec3(0.0f, 0.0f, 1.0f));
+	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
+		cube.move(glm::vec3(0.05f, 0.0f, 0.0f));
+	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+		cube.move(glm::vec3(0.0f, 0.05f, 0.0f));
+	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
+		cube.move(glm::vec3(0.0f, 0.0f, 0.05f));
+}
+
 int main()
 {
 	if (glfwInit() != GL_TRUE)
@@ -81,15 +103,13 @@ int main()
 		// -------------- objects -----------------
 		//ground
 		Cube ground("gravel.jpg", 50);
-		ground.scale(glm::vec3(100.0f, 0.0f, 100.0f));
+		ground.scale(glm::vec3(100.0f, 1.0f, 100.0f));
 		ground.move(glm::vec3(0.0f, -1.0f, 0.0f));
 
 		// cube
 		Cube cube(glm::vec4(0.96f, 0.89f, 0.3f, 1.0f));
-		//cube.scale(glm::vec3(-0.95f, 10.0f, -0.95f));
-		//cube.rotate(glm::vec3(45.0f, 3.0f, 1.0f));
-		//cube.move(glm::vec3(0.0f, 5.0f, 0.0f));
-		cube.move(glm::vec3(0.0f, 1.0f, 0.0f));
+		cube.move(glm::vec3(0.0f, 3.0f, 0.0f));
+		
 
 		while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
 		{
@@ -99,6 +119,8 @@ int main()
 			camera.computeMatricesFromInputs();
 			glm::mat4 view = camera.getViewMatrix();
 			glm::mat4 projection = camera.getProjectionMatrix();
+
+			processCraneInteraction(window, cube);
 
 			textureShaders.Use();
 			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "view"),1, GL_FALSE, &view[0][0]);

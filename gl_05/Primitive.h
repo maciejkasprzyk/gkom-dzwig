@@ -18,9 +18,7 @@ class Primitive : public Object
 	virtual void initVerticies() = 0;
 	virtual void initIndicies() = 0;
 
-	glm::vec3 positionVec;
-	glm::vec3 rotationVec;
-	glm::vec3 scaleVec;
+	glm::mat4 model;
 	GLuint VAO, VBO, EBO;
 
 	bool textured;
@@ -37,9 +35,7 @@ protected:
 public:
 
 	Primitive() :
-		positionVec(glm::vec3(0.0f, 0.0f, 0.0f)),
-		rotationVec(glm::vec3(0.0f, 0.0f, 0.0f)),
-		scaleVec(glm::vec3(1.0f, 1.0f, 1.0f))
+		model(glm::mat4(1.0f))
 	{}
 
 	Primitive(string textureName) : Primitive() {
@@ -130,12 +126,6 @@ public:
 
 	void draw(int shaderId, Camera camera) override
 	{
-		glm::mat4 model = glm::mat4(1.0f);
-		model = translate(model, positionVec);
-		model = glm::rotate(model, glm::radians(rotationVec.x), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotationVec.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotationVec.z), glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::scale(model, scaleVec);
 		glUniformMatrix4fv(glGetUniformLocation(shaderId, "model"), 1, GL_FALSE, &model[0][0]);
 
 		if (textured) {
@@ -156,17 +146,19 @@ public:
 
 	void move(const glm::vec3& vector) override
 	{
-		this->positionVec += vector;
+		model = translate(model, vector);
 	}
 
 	void scale(const glm::vec3& vector) override
 	{
-		this->scaleVec += vector;
+		model = glm::scale(model, vector);
 	}
 
 	void rotate(const glm::vec3& vector) override
 	{
-		this->rotationVec += vector;
+		model = glm::rotate(model, glm::radians(vector.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(vector.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(vector.z), glm::vec3(0.0f, 0.0f, 1.0f));
 	}
 
 
