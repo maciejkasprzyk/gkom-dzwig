@@ -12,6 +12,7 @@ using namespace std;
 #include <glm/gtc/type_ptr.hpp>
 #include "Constants.h"
 #include "Cube.h"
+#include "Crane.h"
 
 
 GLfloat* myObjectVertices(unsigned int& scaleVec);
@@ -101,15 +102,18 @@ int main()
 		ShaderProgram colorShaders("color.vert", "color.frag");
 
 		// -------------- objects -----------------
-		//ground
+		// Ground
 		Cube ground("gravel.jpg", 50);
 		ground.scale(glm::vec3(100.0f, 1.0f, 100.0f));
 		ground.move(glm::vec3(0.0f, -1.0f, 0.0f));
 
-		// cube
-		Cube cube(glm::vec4(0.96f, 0.89f, 0.3f, 1.0f));
-		cube.move(glm::vec3(0.0f, 3.0f, 0.0f));
+		// Cube
+		Cube cube(YELLOW);
+		cube.move(glm::vec3(10.0f, 3.0f, 5.0f));
 		
+		// Crane
+		Crane crane;
+
 
 		while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
 		{
@@ -131,7 +135,7 @@ int main()
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
 			cube.draw(colorShaders.get_programID(), camera);
-
+			crane.draw(colorShaders.get_programID(), camera);
 
 			glfwPollEvents();
 			glfwSwapBuffers(window);

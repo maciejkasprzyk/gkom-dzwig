@@ -57,5 +57,11 @@
     <ClInclude Include="Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Crane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Compound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
