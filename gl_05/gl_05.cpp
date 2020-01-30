@@ -14,6 +14,7 @@ using namespace std;
 #include "Constants.h"
 #include "Cube.h"
 #include "Crane.h"
+#include "CraneBase.h"
 
 
 GLfloat* myObjectVertices(unsigned int& scaleVec);
@@ -124,6 +125,9 @@ int main()
 		// Cube
 		Cube cube(YELLOW);
 		cube.move(glm::vec3(10.0f, -3.0f, 5.0f));
+
+		//Base of crane
+		CraneBase base;
 		
 		// Crane
 		Crane crane;
@@ -152,6 +156,8 @@ int main()
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
 			cube.draw(colorShaders.get_programID(), camera);
 			crane.draw(colorShaders.get_programID(), camera);
+			base.draw(colorShaders.get_programID(), camera);
+			
 
 			skybox.draw(camera.getProjectionMatrix(), camera.getViewMatrix());
 			glfwPollEvents();

@@ -66,5 +66,8 @@
     <ClInclude Include="CraneTop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CraneBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
