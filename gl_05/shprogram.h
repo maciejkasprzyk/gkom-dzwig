@@ -5,9 +5,10 @@
 #include <sstream>
 using namespace std;
 
-#define GLEW_STATIC
 #include <GL/glew.h>
-#include "shprogram.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>	
 
 // funkcje pomocnicze
 string read_shader_code(const GLchar* shaderPath);
@@ -59,6 +60,17 @@ public:
 	GLuint get_programID() const
 	{
 		return program_id;
+	}
+	void setInt(const std::string& name, int value) const
+	{
+		glUniform1i(glGetUniformLocation(program_id, name.c_str()), value);
+	}
+	void setMat4(const std::string& name, const glm::mat4& mat) const
+	{
+		glUniformMatrix4fv(glGetUniformLocation(program_id, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+	}
+	void setTransformMatrix(const std::string& name, glm::mat4 matrix) {
+		glUniformMatrix4fv(glGetUniformLocation(program_id, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 };
 
