@@ -32,9 +32,10 @@ public:
 		}
 		float dbase = 0.5f; // okresla jak bardzo oddalone sa od siebie dwie pierwsze rury trzonu
 
-		stem[1]->move(glm::vec3(0.0f, 0.0f, dbase));
-		stem[2]->move(glm::vec3(dbase, 0.0f, 0.0f));
-		stem[3]->move(glm::vec3(dbase, 0.0f, dbase));
+		stem[0]->move(glm::vec3(-dbase/2, 0.0f, -dbase/2));
+		stem[1]->move(glm::vec3(-dbase/2, 0.0f, dbase/2));
+		stem[2]->move(glm::vec3(dbase/2, 0.0f, -dbase/2));
+		stem[3]->move(glm::vec3(dbase/2, 0.0f, dbase/2));
 
 		for (auto& x : stem) {
 			addObject(std::move(x));
@@ -47,6 +48,7 @@ public:
 			for (int j = 0; j < 4; j++) {
 				for (int k = 0; k < 2; k++) {
 					bars[i][j][k] = std::unique_ptr<Cube>(new Cube(YELLOW));
+					bars[i][j][k]->move(glm::vec3(-dbase / 2, 0.0f, -dbase / 2));
 				}
 			}
 		}
