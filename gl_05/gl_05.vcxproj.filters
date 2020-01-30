@@ -63,5 +63,8 @@
     <ClInclude Include="Compound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CraneTop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

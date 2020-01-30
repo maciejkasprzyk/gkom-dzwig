@@ -8,13 +8,17 @@
 #include "Constants.h"
 #include <algorithm>
 #include <cmath>
-
+#include "CraneTop.h"
 
 class Crane : public Compound {
 public:
 
 	Crane() {
 
+		auto top = std::unique_ptr<CraneTop>(new CraneTop());
+		addObject(std::move(top));
+
+		// pionowa czesc
 		std::unique_ptr<Cube> stem[4]; // stem znaczy trzon
 		std::generate(
 			begin(stem),
@@ -95,6 +99,8 @@ public:
 				}
 			}
 		}
+
+		
 
 	}
 
