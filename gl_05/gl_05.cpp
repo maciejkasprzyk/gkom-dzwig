@@ -19,6 +19,7 @@ using namespace std;
 #include "Cone.h"
 #include "CraneBase.h"
 #include "TextureHandler.h"
+#include "FenceSegment.h"
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -156,6 +157,9 @@ int main()
 		// Crane
 		Crane crane;
 
+		//Fence
+		FenceSegment fenceSegment;
+
 		Tree tree;
 		tree.move2(glm::vec3(4.0f, 0.0f, 0.0f));
 		//skybox
@@ -212,6 +216,7 @@ int main()
 			crane.draw(colorShaders.get_programID(), camera);
 			tree.draw(colorShaders.get_programID(), camera);
 			base.draw(colorShaders.get_programID(), camera);
+			fenceSegment.draw(colorShaders.get_programID(), camera);
 			skybox.draw(camera.getProjectionMatrix(), camera.getViewMatrix());
 			glfwPollEvents();
 			glfwSwapBuffers(window);

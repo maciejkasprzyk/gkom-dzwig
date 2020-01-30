@@ -1,138 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Cone.cpp" />
+    <ClCompile Include="gl_05.cpp" />
+    <ClCompile Include="Leaf.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="gl_05.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Cone.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Leaf.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Compound.h" />
+    <ClInclude Include="Cone.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="Crane.h" />
+    <ClInclude Include="CraneBottom.h" />
+    <ClInclude Include="CraneBase.h" />
+    <ClInclude Include="CraneTop.h" />
+    <ClInclude Include="Cube.h" />
+    <ClInclude Include="Leaf.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Primitive.h" />
+    <ClInclude Include="shprogram.h" />
+    <ClInclude Include="Skybox.h" />
+    <ClInclude Include="TextureHandler.h" />
+    <ClInclude Include="Branch.h" />
+    <ClInclude Include="Tree.h" />
+    <ClInclude Include="FenceSegment.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="texture.frag">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="texture.vert">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="color.frag">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="color.vert">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="lights.vect">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="lights.frag">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="lamp.vect">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="lamp.frag">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="skybox.frag">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="skybox.vert">
-      <Filter>Source Files</Filter>
-    </None>
+    <Image Include="back.jpg" />
+    <Image Include="bottom1.jpg" />
+    <Image Include="front.jpg" />
+    <Image Include="beton.jpg" />
+    <Image Include="betonowy.jpg" />
+    <Image Include="gravel.jpg" />
+    <Image Include="left.jpg" />
+    <Image Include="right.jpg" />
+    <Image Include="top.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="gravel.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="back.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="bottom1.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="front.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="left.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="right.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="top.jpg">
-    <Image Include="beton.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="betonowy.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="shprogram.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Primitive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Crane.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Compound.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CraneTop.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Skybox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Cone.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Leaf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Branch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CraneBottom.h">
-    <ClInclude Include="CraneBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <None Include="color.frag" />
+    <None Include="color.vert" />
+    <None Include="lamp.frag" />
+    <None Include="lamp.vect" />
+    <None Include="lights.frag" />
+    <None Include="lights.vect" />
+    <None Include="skybox.frag" />
+    <None Include="skybox.vert" />
+    <None Include="texture.frag" />
+    <None Include="texture.vert" />
   </ItemGroup>
 </Project>
