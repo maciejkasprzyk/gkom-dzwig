@@ -32,6 +32,18 @@
     <None Include="color.vert">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="lights.vect">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="lights.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="lamp.vect">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="lamp.frag">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="gravel.jpg">
@@ -64,6 +76,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CraneTop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

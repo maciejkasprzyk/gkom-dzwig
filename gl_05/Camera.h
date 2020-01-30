@@ -49,6 +49,9 @@ public:
 	glm::mat4 getProjectionMatrix() {
 		return ProjectionMatrix;
 	}
+	glm::vec3 getPosition() {
+		return positionVec;
+	}
 	float getFoV() {
 		return initialFoV;
 	}

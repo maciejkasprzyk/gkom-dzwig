@@ -90,6 +90,10 @@
   <ItemGroup>
     <None Include="color.frag" />
     <None Include="color.vert" />
+    <None Include="lamp.frag" />
+    <None Include="lamp.vect" />
+    <None Include="lights.frag" />
+    <None Include="lights.vect" />
     <None Include="texture.frag" />
     <None Include="texture.vert" />
   </ItemGroup>
@@ -106,6 +110,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="shprogram.h" />
+    <ClInclude Include="TextureHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

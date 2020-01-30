@@ -9,7 +9,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Camera.h"
 #include <iostream>
-
+#include "TextureHandler.h"
 
 using namespace std;
 
@@ -60,7 +60,7 @@ public:
 		glDeleteBuffers(1, &EBO);
 	}
 
-	
+
 	// nie moge uzyc metody wirtualnej w konstruktorze
 	void init() {
 		initVerticies();
@@ -94,38 +94,7 @@ public:
 		glBindVertexArray(0);
 
 		if (textured) {
-			// prepare textures 
-			GLuint texture;
-			glGenTextures(1, &texture);
-
-			// texture parameters
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-			// texture filtering
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-			// Load texture and generate mipmaps
-			cout << "Nazwa tekstury: " << textureName.c_str() << endl;
-			int width, height;
-			unsigned char* image = SOIL_load_image(textureName.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
-			if (image == nullptr) {
-				throw exception("Failed to load texture file");
-			}
-
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, texture);
-
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-
-			glGenerateMipmap(GL_TEXTURE_2D);
-
-			SOIL_free_image_data(image);
-
-			glBindTexture(GL_TEXTURE_2D, 0);
-
-			textureId = texture;
+			textureId = loadTexture(textureName);
 		}
 	}
 
@@ -146,7 +115,7 @@ public:
 
 
 		glBindVertexArray(VAO);
-		
+
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
@@ -167,7 +136,7 @@ public:
 	}
 	void scale2(const glm::vec3& vector) override
 	{
-		 model = glm::scale(glm::mat4(1.0f), vector) * model;
+		model = glm::scale(glm::mat4(1.0f), vector) * model;
 	}
 
 	void rotate(const glm::vec3& vector) override
@@ -176,13 +145,12 @@ public:
 		model = glm::rotate(model, glm::radians(vector.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(vector.z), glm::vec3(0.0f, 0.0f, 1.0f));
 	}
-	
+
 	void rotate2(const glm::vec3& vector) override
 	{
 		model = glm::rotate(glm::mat4(1.0f), glm::radians(vector.x), glm::vec3(1.0f, 0.0f, 0.0f)) * model;
 		model = glm::rotate(glm::mat4(1.0f), glm::radians(vector.y), glm::vec3(0.0f, 1.0f, 0.0f)) * model;
 		model = glm::rotate(glm::mat4(1.0f), glm::radians(vector.z), glm::vec3(0.0f, 0.0f, 1.0f)) * model;
 	}
-
 
 };
