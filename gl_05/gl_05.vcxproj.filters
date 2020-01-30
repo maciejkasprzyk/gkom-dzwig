@@ -77,6 +77,10 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="top.jpg">
+    <Image Include="beton.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="betonowy.jpg">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -127,6 +131,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CraneBottom.h">
+    <ClInclude Include="CraneBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

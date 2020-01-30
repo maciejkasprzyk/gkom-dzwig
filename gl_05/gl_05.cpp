@@ -16,8 +16,8 @@ using namespace std;
 #include "Constants.h"
 #include "Cube.h"
 #include "Crane.h"
-#include "TextureHandler.h"
 #include "Cone.h"
+#include "CraneBase.h"
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -128,6 +128,29 @@ int main()
 		// Cube
 		Cube cube(YELLOW);
 		cube.move(glm::vec3(10.0f, -3.0f, 5.0f));
+
+		//Counterweights
+		Cube concrete1("betonowy.jpg", 1);
+		Cube concrete2("betonowy.jpg", 1);
+		Cube concrete3("betonowy.jpg", 1);
+		Cube concrete4("betonowy.jpg", 1);
+
+		concrete1.scale(glm::vec3(1.3f, 0.2f, 0.4f));
+		concrete1.move(glm::vec3(0.0f, 0.2f, 0.5f));
+
+		concrete2.scale(glm::vec3(1.3f, 0.2f, 0.4f));
+		concrete2.move(glm::vec3(0.0f, 0.2f, -0.5f));
+
+		concrete3.scale(glm::vec3(1.3f, 0.2f, 0.4f));
+		concrete3.move(glm::vec3(0.0f, 0.4f, 0.5f));
+		concrete3.rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
+
+		concrete4.scale(glm::vec3(1.3f, 0.2f, 0.4f));
+		concrete4.move(glm::vec3(0.0f, 0.4f, -0.5f));
+		concrete4.rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
+
+		//Base of crane
+		CraneBase base;
 		
 		// Crane
 		Crane crane;
@@ -176,15 +199,18 @@ int main()
 			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "view"),1, GL_FALSE, &view[0][0]);
 			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "projection"),1, GL_FALSE, &projection[0][0]);
 			ground.draw(textureShaders.get_programID(), camera);
+			concrete1.draw(textureShaders.get_programID(), camera);
+			concrete2.draw(textureShaders.get_programID(), camera);
+			concrete3.draw(textureShaders.get_programID(), camera);
+			concrete4.draw(textureShaders.get_programID(), camera);
 
 			colorShaders.Use();
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
 			cube.draw(colorShaders.get_programID(), camera);
 			crane.draw(colorShaders.get_programID(), camera);
-			//cone.draw(colorShaders.get_programID(), camera);
 			tree.draw(colorShaders.get_programID(), camera);
-			
+			base.draw(colorShaders.get_programID(), camera);
 			skybox.draw(camera.getProjectionMatrix(), camera.getViewMatrix());
 			glfwPollEvents();
 			glfwSwapBuffers(window);
