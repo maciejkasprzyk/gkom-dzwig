@@ -38,12 +38,13 @@ public:
 		addObject(std::move(leaf3));
 		addObject(std::move(leaf4));
 		addObject(std::move(leaf5));
-
-		auto branchBig = std::unique_ptr<Cone>(new Cone(GREY));
-		auto branchSmall1 = std::unique_ptr<Cone>(new Cone(GREY));
-		auto branchSmall2 = std::unique_ptr<Cone>(new Cone(GREY));
-		auto branchSmall3 = std::unique_ptr<Cone>(new Cone(GREY));
-		auto branchSmall4 = std::unique_ptr<Cone>(new Cone(GREY));
+		auto textNum = 1;
+		auto name = "wood1.jpg";
+		auto branchBig = std::unique_ptr<Cone>(new Cone(name, textNum));
+		auto branchSmall1 = std::unique_ptr<Cone>(new Cone(name, textNum));
+		auto branchSmall2 = std::unique_ptr<Cone>(new Cone(name, textNum));
+		auto branchSmall3 = std::unique_ptr<Cone>(new Cone(name, textNum));
+		auto branchSmall4 = std::unique_ptr<Cone>(new Cone(name, textNum));
 		
 		branchBig->scale(glm::vec3(0.15f, 2.05f, 0.15f));
 		float branchScale = 0.07;

@@ -6,6 +6,7 @@
 #include "Tree.h"
 #include "shprogram.h"
 #include "Object.h"
+#include "Forest.h"
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
 #include <iostream>
@@ -173,7 +174,7 @@ int main()
 		lightningShader.Use();
 		lightningShader.setInt("material.diffuse", 0);
 		lightningShader.setInt("material.specular", 1);
-
+		auto forest = Forest();
 		while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
 		{
 			float currentFrame = glfwGetTime();
@@ -204,13 +205,13 @@ int main()
 			concrete2.draw(textureShaders.get_programID(), camera);
 			concrete3.draw(textureShaders.get_programID(), camera);
 			concrete4.draw(textureShaders.get_programID(), camera);
+			forest.draw(colorShaders.get_programID(), camera);
 
 			colorShaders.Use();
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
 			cube.draw(colorShaders.get_programID(), camera);
 			crane.draw(colorShaders.get_programID(), camera);
-			tree.draw(colorShaders.get_programID(), camera);
 			base.draw(colorShaders.get_programID(), camera);
 			skybox.draw(camera.getProjectionMatrix(), camera.getViewMatrix());
 			glfwPollEvents();
