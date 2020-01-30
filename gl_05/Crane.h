@@ -100,25 +100,25 @@ public:
 			}
 		}
 	}
-	void rotateTop(bool dir) {
+	void rotateTop(bool dir,float deltaTime) {
 		if (dir) {
-			objects[0]->rotate2(glm::vec3(0.0f, 0.5f, 0.0f));
+			objects[0]->rotate2(glm::vec3(0.0f, 0.5f, 0.0f) * deltaTime);
 		}
 		else {
-			objects[0]->rotate2(glm::vec3(0.0f, -0.5f, 0.0f));
+			objects[0]->rotate2(glm::vec3(0.0f, -0.5f, 0.0f) * deltaTime);
 		}
 	}
-	void forward() {
-		dynamic_cast<CraneTop&>(*objects[0]).forward();
+	void forward(float deltaTime) {
+		dynamic_cast<CraneTop&>(*objects[0]).forward(deltaTime);
 	}
-	void backwards() {
-		dynamic_cast<CraneTop&>(*objects[0]).backwards();
+	void backwards(float deltaTime) {
+		dynamic_cast<CraneTop&>(*objects[0]).backwards(deltaTime);
 	}
-	void up() {
-		dynamic_cast<CraneTop&>(*objects[0]).up();
+	void up(float deltaTime) {
+		dynamic_cast<CraneTop&>(*objects[0]).up(deltaTime);
 	}
-	void down() {
-		dynamic_cast<CraneTop&>(*objects[0]).down();
+	void down(float deltaTime) {
+		dynamic_cast<CraneTop&>(*objects[0]).down(deltaTime);
 	}
 
 };

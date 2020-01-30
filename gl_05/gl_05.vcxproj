@@ -100,7 +100,13 @@
     <None Include="texture.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="back.jpg" />
+    <Image Include="bottom1.jpg" />
+    <Image Include="front.jpg" />
     <Image Include="gravel.jpg" />
+    <Image Include="left.jpg" />
+    <Image Include="right.jpg" />
+    <Image Include="top.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
