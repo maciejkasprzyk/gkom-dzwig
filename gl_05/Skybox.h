@@ -23,7 +23,7 @@ private:
 		"front.jpg",
 		"back.jpg",
 		"top.jpg",
-		"bottom.jpg",//bottom
+		"bottom1.jpg",//bottom
 		"left.jpg",
 		"right.jpg"
 	};
