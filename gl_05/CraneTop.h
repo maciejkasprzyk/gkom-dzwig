@@ -10,6 +10,7 @@ public:
 		float height = 14.0f;
 		float dbase = 0.5f; // okresla jak bardzo oddalone sa od siebie dwie pierwsze rury trzonu
 
+
 		// przyczep na line
 		auto box = std::unique_ptr<Cube>(new Cube(YELLOW));
 		box->scale(glm::vec3(0.1f, 0.5f, 0.5f));

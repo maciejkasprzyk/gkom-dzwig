@@ -94,6 +94,8 @@
     <None Include="texture.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="beton.jpg" />
+    <Image Include="betonowy.jpg" />
     <Image Include="gravel.jpg" />
   </ItemGroup>
   <ItemGroup>

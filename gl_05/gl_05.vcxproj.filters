@@ -37,6 +37,12 @@
     <Image Include="gravel.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="beton.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="betonowy.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shprogram.h">
