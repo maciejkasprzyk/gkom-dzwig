@@ -14,6 +14,8 @@ public:
 		auto cone1 = std::unique_ptr<Cone>(new Cone(GREEN));
 		auto cone2 = std::unique_ptr<Cone>(new Cone(GREEN));
 		cone2->rotate(glm::vec3(180.0f, 0.0f, 0.0f));
+		cone2->scale(glm::vec3(0.4f, 0.4f, 0.4f));
+		cone1->scale(glm::vec3(0.4f, 0.4f, 0.4f));
 		//cone2->move(glm::vec3(0.0f, 1.0f, 0.0f));
 		addObject(std::move(cone1));
 		addObject(std::move(cone2));

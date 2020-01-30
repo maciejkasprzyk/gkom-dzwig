@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include "Skybox.h"
 #include "Leaf.h"
+#include "Branch.h"
 #include "shprogram.h"
 #include "Object.h"
 #include <GLFW/glfw3.h>
@@ -129,8 +130,10 @@ int main()
 		
 		// Crane
 		Crane crane;
-		Leaf leaf = Leaf();
-		leaf.move2(glm::vec3(0.0f, 4.0f, 0.0f));
+
+		//branch
+		Branch branch;
+		branch.move2(glm::vec3(4.0f, 0.0f, 0.0f));
 		//skybox
 		auto skybox = Skybox();
 		//lights
@@ -180,7 +183,7 @@ int main()
 			cube.draw(colorShaders.get_programID(), camera);
 			crane.draw(colorShaders.get_programID(), camera);
 			//cone.draw(colorShaders.get_programID(), camera);
-			leaf.draw(colorShaders.get_programID(), camera);
+			branch.draw(colorShaders.get_programID(), camera);
 			
 			skybox.draw(camera.getProjectionMatrix(), camera.getViewMatrix());
 			glfwPollEvents();
