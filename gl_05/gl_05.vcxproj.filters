@@ -23,8 +23,9 @@
     <ClInclude Include="TextureHandler.h" />
     <ClInclude Include="Branch.h" />
     <ClInclude Include="Tree.h" />
-    <ClInclude Include="FenceSegment.h" />
-    <ClInclude Include="Fence.h" />
+    <ClInclude Include="Forest.h" />
+    <ClInclude Include="TextureProvider.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="back.jpg" />
