@@ -6,6 +6,17 @@ class CraneTop : public Compound {
 public:
 
 	CraneTop() {
+		float thick = 0.05f;
+		float height = 14.0f;
+		float dbase = 0.5f; // okresla jak bardzo oddalone sa od siebie dwie pierwsze rury trzonu
+
+		// przyczep na line
+		auto box = std::unique_ptr<Cube>(new Cube(YELLOW));
+		box->scale(glm::vec3(0.1f, 0.5f, 0.5f));
+		box->move(glm::vec3(0.0f, height/2, dbase/2));
+
+		addObject(std::move(box));
+
 		std::unique_ptr<Cube> stem[3]; // stem znaczy trzon
 		std::generate(
 			begin(stem),
@@ -13,15 +24,12 @@ public:
 			[]() { return std::make_unique<Cube>(YELLOW); }
 		);
 
-		float thick = 0.05f;
-		float height = 14.0f;
 
 		for (auto& x : stem) {
 
 			x->scale(glm::vec3(thick, height, thick));
 			x->move(glm::vec3(0.0f, height / 2, 0.0f));
 		}
-		float dbase = 0.5f; // okresla jak bardzo oddalone sa od siebie dwie pierwsze rury trzonu
 
 		stem[1]->move(glm::vec3(0.0f, 0.0f, dbase));
 		stem[2]->move(glm::vec3(dbase * sqrt(3) / 2, 0.0f, dbase / 2));
@@ -82,4 +90,12 @@ public:
 		this->rotate2(glm::vec3(0.0f, 0.0f, 90.0f));
 		this->move2(glm::vec3(8 * dbase, 10.0f, -dbase / 2));
 	}
+
+	void forward() {
+		objects[0]->move(glm::vec3(0.0f, 0.05f, 0.0f));
+	}
+	void backwards() {
+		objects[0]->move(glm::vec3(0.0f, -0.05f, 0.0f));
+	}
+
 };
