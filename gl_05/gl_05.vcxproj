@@ -122,13 +122,16 @@
     <ClInclude Include="CraneBase.h" />
     <ClInclude Include="CraneTop.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="Forest.h" />
     <ClInclude Include="Leaf.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="shprogram.h" />
     <ClInclude Include="Skybox.h" />
+    <ClInclude Include="TextureProvider.h" />
     <ClInclude Include="TextureHandler.h" />
     <ClInclude Include="Branch.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -17,6 +17,10 @@ public:
 		this->reps = 0.0f; // to i tak jest nieuzywane
 		init();
 	}
+	Cone(string textureName, GLfloat texture_repeats) : Primitive(textureName) {
+		this->reps = texture_repeats * 1.0f;
+		init();
+	}
 
 
 private:
