@@ -17,17 +17,27 @@ public:
 		auto leaf2= std::unique_ptr<Leaf>(new Leaf());
 		auto leaf3= std::unique_ptr<Leaf>(new Leaf());
 		auto leaf4= std::unique_ptr<Leaf>(new Leaf());
+		auto leaf5= std::unique_ptr<Leaf>(new Leaf());
 
-		auto leafHeight = 2.6f;
-		leaf1->move2(glm::vec3(0.9f, leafHeight, 0.0f));
-		leaf2->move2(glm::vec3(0.5f, leafHeight, 0.1f));
-		leaf3->move2(glm::vec3(0.2f, leafHeight, 0.3f));
-		leaf4->move2(glm::vec3(0.0f, leafHeight, 0.0f));
+		leaf2->rotate2(glm::vec3(-45.0f, 0.0f, 0.0f));
+		leaf3->rotate2(glm::vec3(45.0f, 0.0f, 0.0f));
+		leaf4->rotate2(glm::vec3(0.0f, 0.0f, -45.0f));
+		leaf5->rotate2(glm::vec3(0.0f, 0.0f, 45.0f));
+		
+		auto leafHeight = 2.0f;
+		auto leafMove = 0.81f;
+		leaf1->move2(glm::vec3(0.0f, leafHeight * 1.07, 0.0f));
+		leaf2->move2(glm::vec3(0.0f, leafHeight, -leafMove));
+		leaf3->move2(glm::vec3(0.0f, leafHeight, leafMove));
+		leaf4->move2(glm::vec3(leafMove, leafHeight, 0.0f));
+		leaf5->move2(glm::vec3(-leafMove, leafHeight, 0.0f));
+
 
 		addObject(std::move(leaf1));
 		addObject(std::move(leaf2));
 		addObject(std::move(leaf3));
 		addObject(std::move(leaf4));
+		addObject(std::move(leaf5));
 
 		auto branchBig = std::unique_ptr<Cone>(new Cone(GREY));
 		auto branchSmall1 = std::unique_ptr<Cone>(new Cone(GREY));
@@ -35,23 +45,24 @@ public:
 		auto branchSmall3 = std::unique_ptr<Cone>(new Cone(GREY));
 		auto branchSmall4 = std::unique_ptr<Cone>(new Cone(GREY));
 		
-		branchBig->scale(glm::vec3(0.3f, 2.5f, 0.3f));
+		branchBig->scale(glm::vec3(0.15f, 2.05f, 0.15f));
 		float branchScale = 0.07;
-		branchSmall1->scale(glm::vec3(branchScale, 1.0f, branchScale));
-		branchSmall2->scale(glm::vec3(branchScale, 1.0f, branchScale));
-		branchSmall3->scale(glm::vec3(branchScale, 1.0f, branchScale));
-		branchSmall4->scale(glm::vec3(branchScale, 1.0f, branchScale));
+		float branchScaleLong = 1.2;
+		branchSmall1->scale(glm::vec3(branchScale, branchScaleLong, branchScale));
+		branchSmall2->scale(glm::vec3(branchScale, branchScaleLong, branchScale));
+		branchSmall3->scale(glm::vec3(branchScale, branchScaleLong, branchScale));
+		branchSmall4->scale(glm::vec3(branchScale, branchScaleLong, branchScale));
 		
-		auto branchSmallUp = 1.8f;
+		auto branchSmallUp = 1.2f;
 		branchSmall1->move2(glm::vec3(0.0f, branchSmallUp, 0.0f));
 		branchSmall2->move2(glm::vec3(0.0f, branchSmallUp, 0.0f));
 		branchSmall3->move2(glm::vec3(0.0f, branchSmallUp, 0.0f));
 		branchSmall4->move2(glm::vec3(0.0f, branchSmallUp, 0.0f));
 		
-		branchSmall1->rotate(glm::vec3(45.0f, 45.0f, 0.0f));
-		branchSmall2->rotate(glm::vec3(0.0f, 45.0f, 45.0f));
-		branchSmall3->rotate(glm::vec3(-45.0f, 45.0f, 30.0f));
-		branchSmall4->rotate(glm::vec3(0.0f, 45.0f, -45.0f));
+		branchSmall1->rotate(glm::vec3(45.0f, 0.0f, 0.0f));
+		branchSmall2->rotate(glm::vec3(0.0f, 0.0f, 45.0f));
+		branchSmall3->rotate(glm::vec3(-45.0f, 0.0f, 0.0f));
+		branchSmall4->rotate(glm::vec3(0.0f, 0.0f, -45.0f));
 		
 
 		addObject(std::move(branchBig));
