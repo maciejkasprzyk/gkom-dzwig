@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "Skybox.h"
 #include "Leaf.h"
-#include "Branch.h"
+#include "Tree.h"
 #include "shprogram.h"
 #include "Object.h"
 #include <GLFW/glfw3.h>
@@ -18,6 +18,7 @@ using namespace std;
 #include "Crane.h"
 #include "TextureHandler.h"
 #include "Cone.h"
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	// cout << key << endl;
@@ -131,9 +132,8 @@ int main()
 		// Crane
 		Crane crane;
 
-		//branch
-		Branch branch;
-		branch.move2(glm::vec3(4.0f, 0.0f, 0.0f));
+		Tree tree;
+		tree.move2(glm::vec3(4.0f, 0.0f, 0.0f));
 		//skybox
 		auto skybox = Skybox();
 		//lights
@@ -183,7 +183,7 @@ int main()
 			cube.draw(colorShaders.get_programID(), camera);
 			crane.draw(colorShaders.get_programID(), camera);
 			//cone.draw(colorShaders.get_programID(), camera);
-			branch.draw(colorShaders.get_programID(), camera);
+			tree.draw(colorShaders.get_programID(), camera);
 			
 			skybox.draw(camera.getProjectionMatrix(), camera.getViewMatrix());
 			glfwPollEvents();
