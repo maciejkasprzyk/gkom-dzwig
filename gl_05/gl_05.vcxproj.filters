@@ -44,6 +44,12 @@
     <None Include="lamp.frag">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="skybox.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="skybox.vert">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="gravel.jpg">
@@ -79,6 +85,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextureHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
