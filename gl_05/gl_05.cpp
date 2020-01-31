@@ -341,7 +341,7 @@ int main()
 			debugDepthQuad.use();
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, depthMap);
-			renderQuad();
+			//renderQuad();
 
 			// koniec
 			glfwPollEvents();
