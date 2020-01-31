@@ -99,7 +99,22 @@ public:
 			}
 		}
 
-	
+		// laczenie miedzy wieza a ramieniem
+		auto x = std::unique_ptr<Cube>(new Cube(YELLOW));
+		x->scale(glm::vec3(0.05f, 8.0f, 0.05f));
+		x->move(glm::vec3(0.0f, 8.0f, dbase/2.0f));
+
+		x->move(glm::vec3(0.0f, -4.0f, 0.0f));
+		x->rotate2(glm::vec3(0.0f, 0.0f, 10.7f));
+		x->move(glm::vec3(2.6f, 3.55f, 0.0f));
+
+
+
+		addObject(std::move(x));
+
+
+
+		// na poczatku wszystko jest w pionie, trzeba to obricic i podniesc
 		this->rotate2(glm::vec3(0.0f, 0.0f, 90.0f));
 		this->move2(glm::vec3(8 * dbase, 10.0f, -dbase / 2));
 
