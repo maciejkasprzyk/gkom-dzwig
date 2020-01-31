@@ -130,7 +130,7 @@ int main()
 		ShaderProgram simpleDepthShader("shadow.vert", "shadow.frag");
 		ShaderProgram debugDepthQuad("debug.vert", "debug.frag");
 		// configure depth map FBO
-   // -----------------------
+		// -----------------------
 		const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
 		unsigned int depthMapFBO;
 		glGenFramebuffers(1, &depthMapFBO);
@@ -276,20 +276,19 @@ int main()
 			glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			// render Depth map to quad for visual debugging
-			// ---------------------------------------------
-			debugDepthQuad.use();
-			debugDepthQuad.setFloat("near_plane", near_plane);
-			debugDepthQuad.setFloat("far_plane", far_plane);
+			// skonczylismy renederowac mape cienia
+			// 2. render scene as normal using the generated depth/shadow map  
+			// --------------------------------------------------------------
+			textureShaders.use();
+			//textureShaders.setVec3("viewPos", camera.Position); to do swiatla -> niepotrzebne
+			textureShaders.setVec3("lightPos", lightPos);
+			textureShaders.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, depthMap);
-			renderQuad();
+			textureShaders.setMat4("view", view);
+			textureShaders.setMat4("projection", projection);
+			textureShaders.setInt("shadowMap", 0);
 
-			// koniec
-			/*
-			textureShaders.use();
-			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
-			glUniformMatrix4fv(glGetUniformLocation(textureShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
 			ground.draw(textureShaders.get_programID(), camera);
 			concrete1.draw(textureShaders.get_programID(), camera);
 			concrete2.draw(textureShaders.get_programID(), camera);
@@ -297,15 +296,30 @@ int main()
 			concrete4.draw(textureShaders.get_programID(), camera);
 			forest.draw(colorShaders.get_programID(), camera);
 
+			// obiekty z kolorem ------------
+
 			colorShaders.use();
-			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
-			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "projection"), 1, GL_FALSE, &projection[0][0]);
+			colorShaders.setVec3("lightPos", lightPos);
+			colorShaders.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, depthMap);
+			colorShaders.setMat4("view", view);
+			colorShaders.setMat4("projection", projection);
+			colorShaders.setInt("shadowMap", 0);
+
 			cube.draw(colorShaders.get_programID(), camera);
 			crane.draw(colorShaders.get_programID(), camera);
 			base.draw(colorShaders.get_programID(), camera);
-			
+
 			skybox.draw(camera.getProjectionMatrix(), camera.getViewMatrix());
-			*/
+			// render Depth map to quad for visual debugging
+			// ---------------------------------------------
+			/*debugDepthQuad.use();
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, depthMap);
+			renderQuad();*/
+
+			// koniec
 			glfwPollEvents();
 			glfwSwapBuffers(window);
 		} ;
