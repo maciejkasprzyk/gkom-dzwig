@@ -7,10 +7,10 @@
 #include "Constants.h"
 #include <algorithm>
 #include <cmath>
-class Fence : public Compound
+class Fence2 : public Compound
 {
 public:
-	Fence() {
+	Fence2() {
 		const int fenceLen = 30;
 		std::unique_ptr<Cube> plates[fenceLen]; // stem znaczy trzon
 		std::generate(

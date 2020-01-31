@@ -18,7 +18,7 @@ using namespace std;
 #include "Cube.h"
 #include "Crane.h"
 #include "Cone.h"
-#include "Fence.h"
+#include "Fence2.h"
 #include "CraneBase.h"
 #include "TextureHandler.h"
 
@@ -162,9 +162,9 @@ int main()
 		tree.move2(glm::vec3(4.0f, 0.0f, 0.0f));
 		//skybox
 		auto skybox = Skybox();
-		auto fence1 = Fence();
-		auto fence2 = Fence();
-		auto fence3 = Fence();
+		auto fence1 = Fence2();
+		auto fence2 = Fence2();
+		auto fence3 = Fence2();
 		fence1.rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
 		fence2.rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
 
