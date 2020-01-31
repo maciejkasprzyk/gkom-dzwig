@@ -122,7 +122,7 @@ int main()
 		ShaderProgram lampShader("lamp.vect", "lamp.frag");
 		// -------------- objects -----------------
 		// Ground
-		Cube ground("gravel.jpg", 50);
+		Cube ground("grass_tex.jpg", 30);
 		ground.scale(glm::vec3(100.0f, 1.0f, 100.0f));
 		ground.move(glm::vec3(0.0f, -0.5f, 0.0f)); // podloga jest dokladnie na y = 0.0
 		Cone cone(GREY);
