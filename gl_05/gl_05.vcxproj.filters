@@ -27,6 +27,7 @@
     <ClInclude Include="TextureProvider.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Fence2.h" />
+    <ClInclude Include="Shadows.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="back.jpg" />
@@ -38,6 +39,8 @@
     <Image Include="left.jpg" />
     <Image Include="right.jpg" />
     <Image Include="top.jpg" />
+    <Image Include="gravel3.jpg" />
+    <Image Include="grass_tex.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="color.frag" />
@@ -50,5 +53,9 @@
     <None Include="skybox.vert" />
     <None Include="texture.frag" />
     <None Include="texture.vert" />
+    <None Include="shadow.vert" />
+    <None Include="shadow.frag" />
+    <None Include="debug.vert" />
+    <None Include="debug.frag" />
   </ItemGroup>
 </Project>

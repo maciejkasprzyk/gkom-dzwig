@@ -92,10 +92,14 @@
   <ItemGroup>
     <None Include="color.frag" />
     <None Include="color.vert" />
+    <None Include="debug.frag" />
+    <None Include="debug.vert" />
     <None Include="lamp.frag" />
     <None Include="lamp.vect" />
     <None Include="lights.frag" />
     <None Include="lights.vect" />
+    <None Include="shadow.frag" />
+    <None Include="shadow.vert" />
     <None Include="skybox.frag" />
     <None Include="skybox.vert" />
     <None Include="texture.frag" />
@@ -107,7 +111,9 @@
     <Image Include="front.jpg" />
     <Image Include="beton.jpg" />
     <Image Include="betonowy.jpg" />
+    <Image Include="grass_tex.jpg" />
     <Image Include="gravel.jpg" />
+    <Image Include="gravel3.jpg" />
     <Image Include="left.jpg" />
     <Image Include="right.jpg" />
     <Image Include="top.jpg" />
@@ -124,6 +130,7 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Fence.h" />
     <ClInclude Include="Forest.h" />
+    <ClInclude Include="Shadows.h" />
     <ClInclude Include="Leaf.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Primitive.h" />

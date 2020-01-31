@@ -120,7 +120,7 @@ public:
 			-1.0f, -1.0f,  1.0f,
 			 1.0f, -1.0f,  1.0f
 		};
-		shader.Use();
+		shader.use();
 		shader.setInt("skybox", 0);
 		setupBuffers();
 		cubemapTexture = loadCubemap(faces);
@@ -136,7 +136,7 @@ public:
 	{
 		// draw skybox as last
 		glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
-		shader.Use();
+		shader.use();
 		view = glm::mat4(glm::mat3(view)); // remove translation from the view matrix
 		shader.setTransformMatrix("view", view);
 		shader.setTransformMatrix("projection", projection);

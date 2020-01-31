@@ -96,6 +96,7 @@ public:
 			// prepare textures 
 			GLuint texture;
 
+			glActiveTexture(GL_TEXTURE1);
 			// texture parameters
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -111,7 +112,6 @@ public:
 			glGenTextures(1, &texture);
 
 
-			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture);
 
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
@@ -133,9 +133,9 @@ public:
 		glUniformMatrix4fv(glGetUniformLocation(shaderId, "model"), 1, GL_FALSE, &modelTemp[0][0]);
 
 		if (textured) {
-			glActiveTexture(GL_TEXTURE0);
+			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_2D, textureId);
-			glUniform1i(glGetUniformLocation(shaderId, "Texture"), 0);
+			glUniform1i(glGetUniformLocation(shaderId, "Texture"), 1);
 		}
 		else {
 			glUniform4fv(glGetUniformLocation(shaderId, "Color"), 1, &color[0]);

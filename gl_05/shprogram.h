@@ -51,7 +51,7 @@ public:
 	}
 
 	// Use the program
-	void Use() const
+	void use() const
 	{
 		glUseProgram(get_programID());
 	}
