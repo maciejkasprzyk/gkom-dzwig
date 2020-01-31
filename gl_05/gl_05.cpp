@@ -18,6 +18,7 @@ using namespace std;
 #include "Cube.h"
 #include "Crane.h"
 #include "Cone.h"
+#include "Fence.h"
 #include "CraneBase.h"
 #include "TextureHandler.h"
 
@@ -161,6 +162,15 @@ int main()
 		tree.move2(glm::vec3(4.0f, 0.0f, 0.0f));
 		//skybox
 		auto skybox = Skybox();
+		auto fence1 = Fence();
+		auto fence2 = Fence();
+		auto fence3 = Fence();
+		fence1.rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
+		fence2.rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
+
+		fence1.move2(glm::vec3(-1.7f, 0.0f, -3.5f));
+		fence2.move2(glm::vec3(-1.7f, 0.0f, 5.2f));
+		fence3.move2(glm::vec3(-2.7f, 0.0f, -4.5f));
 		//lights
 		auto pointLightPositions = {
 			glm::vec3(0.7f,  0.2f,  2.0f),
@@ -206,6 +216,9 @@ int main()
 			concrete3.draw(textureShaders.get_programID(), camera);
 			concrete4.draw(textureShaders.get_programID(), camera);
 			forest.draw(colorShaders.get_programID(), camera);
+			fence1.draw(colorShaders.get_programID(), camera);
+			fence2.draw(colorShaders.get_programID(), camera);
+			fence3.draw(colorShaders.get_programID(), camera);
 
 			colorShaders.Use();
 			glUniformMatrix4fv(glGetUniformLocation(colorShaders.get_programID(), "view"), 1, GL_FALSE, &view[0][0]);
