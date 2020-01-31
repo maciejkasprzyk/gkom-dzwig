@@ -123,6 +123,7 @@
     <ClInclude Include="Compound.h" />
     <ClInclude Include="Cone.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="Counterweights.h" />
     <ClInclude Include="Crane.h" />
     <ClInclude Include="CraneBottom.h" />
     <ClInclude Include="CraneBase.h" />

@@ -22,6 +22,7 @@ using namespace std;
 #include "TextureHandler.h"
 #include "Fence.h"
 #include "Fence2.h"
+#include "Counterweights.h"
 
 void renderQuad();
 void renderCube();
@@ -30,8 +31,8 @@ void draw_colored(ShaderProgram& shader, Camera& camera);
 void draw_textured(ShaderProgram& shader, Camera& camera);
 
 unsigned int planeVAO;
-float near_plane = 1.0f, far_plane = 10.0f;
-float orth = 60.0f;
+float near_plane = -12.0f, far_plane = 11.0f;
+float orth = 27.0f;
 
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -86,12 +87,16 @@ void processCubeInteraction(GLFWwindow* window, Cube& cube, float deltaTime)
 
 }
 
-void processCraneInteraction(GLFWwindow* window, Crane& crane, float deltaTime)
+void processCraneInteraction(GLFWwindow* window, Crane& crane, float deltaTime, Counterweights& counterweights)
 {
-	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
 		crane.rotateTop(true, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+		counterweights.rotate2(glm::vec3(0.0f, 0.5f, 0.0f) * deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
+		counterweights.rotate2(glm::vec3(0.0f, -0.5f, 0.0f) * deltaTime);
 		crane.rotateTop(false, deltaTime);
+	}
 	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
 		crane.forward(deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
@@ -139,7 +144,7 @@ int main()
 		float horizontalAngle = 0.785f;
 		float verticalAngle = 0.0f;
 		float initialFoV = 45.0f;
-		float speed = 3.0f;
+		float speed = 10.0f;
 		float mouseSpeed = 0.005f;
 		Camera camera = Camera(window, positionVec, horizontalAngle, verticalAngle, initialFoV, speed, mouseSpeed);
 
@@ -211,27 +216,32 @@ int main()
 		Cube concrete2("betonowy.jpg", 1);
 		Cube concrete3("betonowy.jpg", 1);
 		Cube concrete4("betonowy.jpg", 1);
-		Cube ground("grass_tex.jpg", 30);
+		Cube ground("grass_tex.jpg", 16);
+		Cube ground2("gravel.jpg", 4);
 		Cube cube(YELLOW);
 		CraneBase base;
 		Crane crane;
-		Tree tree;
 		Forest forest;
 		Fence fence;
+		Counterweights counterweights;
 
 		auto fence1 = Fence2();
-		auto fence2 = Fence2();
 		auto fence3 = Fence2();
 		fence1.rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
-		fence2.rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
+	
 
 		fence1.move2(glm::vec3(-1.7f, 0.0f, -3.5f));
-		fence2.move2(glm::vec3(-1.7f, 0.0f, 5.2f));
 		fence3.move2(glm::vec3(-2.7f, 0.0f, -4.5f));
 
+		fence1.move2(glm::vec3(12.0f, 0.0f, 15.0f));
+		fence3.move2(glm::vec3(12.0f, 0.0f, 15.0f));
 
-		ground.scale(glm::vec3(100.0f, 1.0f, 100.0f));
+
+		ground.scale(glm::vec3(40.0f, 1.0f, 40.0f));
 		ground.move(glm::vec3(0.0f, -0.5f, 0.0f)); // podloga jest dokladnie na y = 0.0
+		
+		ground2.scale(glm::vec3(12.0f, 1.0f, 12.0f));
+		ground2.move(glm::vec3(0.0f, -0.499f, 0.0f));
 	
 		cube.move(glm::vec3(10.0f, -3.0f, 5.0f));
 		
@@ -249,8 +259,8 @@ int main()
 		concrete4.move(glm::vec3(0.0f, 0.4f, -0.5f));
 		concrete4.rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
 
+		forest.move2(glm::vec3(15.0, 0.0f, 15.0f));
 
-		tree.move2(glm::vec3(4.0f, 0.0f, 0.0f));
 		//skybox
 		auto skybox = Skybox();
 	
@@ -269,7 +279,7 @@ int main()
 			glm::mat4 projection = camera.getProjectionMatrix();
 
 			processCubeInteraction(window, cube, deltaTime);
-			processCraneInteraction(window, crane, deltaTime);
+			processCraneInteraction(window, crane, deltaTime, counterweights);
 
 			// tutaj koncza sie czynnosci przygotowujace
 			// 1. render depth of scene to texture (from light's perspective)
@@ -294,12 +304,18 @@ int main()
 			glClear(GL_DEPTH_BUFFER_BIT);
 			
 			auto& shader = simpleDepthShader;
-			ground.draw(shader.get_programID(), camera);
+		    ground.draw(shader.get_programID(), camera);
+			ground2.draw(shader.get_programID(), camera);
 			concrete1.draw(shader.get_programID(), camera);
 			concrete2.draw(shader.get_programID(), camera);
 			concrete3.draw(shader.get_programID(), camera);
 			concrete4.draw(shader.get_programID(), camera);
 			forest.draw(shader.get_programID(), camera);
+			fence.draw(shader.get_programID(), camera);
+			fence1.draw(shader.get_programID(), camera);
+			fence3.draw(shader.get_programID(), camera);
+			counterweights.draw(shader.get_programID(), camera);
+			// kolorwe
 			cube.draw(shader.get_programID(), camera);
 			crane.draw(shader.get_programID(), camera);
 			base.draw(shader.get_programID(), camera);
@@ -309,7 +325,7 @@ int main()
 			// reset viewport
 			glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+			
 			// skonczylismy renederowac mape cienia
 			// 2. render scene as normal using the generated depth/shadow map  
 			// --------------------------------------------------------------
@@ -324,6 +340,7 @@ int main()
 			textureShaders.setInt("shadowMap", 0);
 
 			ground.draw(textureShaders.get_programID(), camera);
+			ground2.draw(textureShaders.get_programID(), camera);
 			concrete1.draw(textureShaders.get_programID(), camera);
 			concrete2.draw(textureShaders.get_programID(), camera);
 			concrete3.draw(textureShaders.get_programID(), camera);
@@ -331,8 +348,8 @@ int main()
 			fence.draw(textureShaders.get_programID(), camera);
 			forest.draw(colorShaders.get_programID(), camera);
 			fence1.draw(colorShaders.get_programID(), camera);
-			fence2.draw(colorShaders.get_programID(), camera);
 			fence3.draw(colorShaders.get_programID(), camera);
+			counterweights.draw(colorShaders.get_programID(), camera);
 			// obiekty z kolorem ------------
 
 			colorShaders.use();
