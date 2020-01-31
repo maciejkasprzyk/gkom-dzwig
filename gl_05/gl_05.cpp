@@ -31,7 +31,7 @@ void draw_colored(ShaderProgram& shader, Camera& camera);
 void draw_textured(ShaderProgram& shader, Camera& camera);
 
 unsigned int planeVAO;
-float near_plane = -12.0f, far_plane = 11.0f;
+float near_plane = -12.0f, far_plane = 13.0f;
 float orth = 27.0f;
 
 
