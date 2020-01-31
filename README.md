@@ -30,3 +30,13 @@
 
 ## Przykładowy projekt
 ![alt text](https://4.allegroimg.com/original/0cec95/5b86b01449e58638a793dc6169c4)
+
+
+
+## Obsługa programu
+Poruszanie się kamery - (W,S,A,D, ArrowUp, ArrowDown)
+Obracanie dźwigu - (Q,E)
+Podnoszenie liny (R,F)
+Przesuwanie liny(T,G)
+
+
