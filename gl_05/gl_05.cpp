@@ -21,6 +21,7 @@ using namespace std;
 #include "CraneBase.h"
 #include "TextureHandler.h"
 #include "Fence.h"
+#include "Fence2.h"
 
 void renderQuad();
 void renderCube();
