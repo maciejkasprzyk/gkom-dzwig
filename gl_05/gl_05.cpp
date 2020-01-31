@@ -218,6 +218,16 @@ int main()
 		Forest forest;
 		Fence fence;
 
+		auto fence1 = Fence2();
+		auto fence2 = Fence2();
+		auto fence3 = Fence2();
+		fence1.rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
+		fence2.rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
+
+		fence1.move2(glm::vec3(-1.7f, 0.0f, -3.5f));
+		fence2.move2(glm::vec3(-1.7f, 0.0f, 5.2f));
+		fence3.move2(glm::vec3(-2.7f, 0.0f, -4.5f));
+
 
 		ground.scale(glm::vec3(100.0f, 1.0f, 100.0f));
 		ground.move(glm::vec3(0.0f, -0.5f, 0.0f)); // podloga jest dokladnie na y = 0.0
@@ -319,7 +329,9 @@ int main()
 			concrete4.draw(textureShaders.get_programID(), camera);
 			fence.draw(textureShaders.get_programID(), camera);
 			forest.draw(colorShaders.get_programID(), camera);
-
+			fence1.draw(colorShaders.get_programID(), camera);
+			fence2.draw(colorShaders.get_programID(), camera);
+			fence3.draw(colorShaders.get_programID(), camera);
 			// obiekty z kolorem ------------
 
 			colorShaders.use();
