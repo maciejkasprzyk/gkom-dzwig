@@ -7,22 +7,25 @@
 - Maciej Kasprzyk
 
 ## Milestones and stones
-- [ ] Szkic rozwiązania
-- [ ] Stworzenie prostych Bryl
-    - [ ] Trzon dzwigu
-    - [ ] Ramie dzwigu
-    - [ ] Kabina
-    - [ ] Hak i lina
-    - [ ] Przeciwwaga
-- [ ] Nałożenie tekstur na wybrane elementy
-- [ ] Dodanie tła
-- [ ] Światła z możliwością regulacji intensywności (interaktywnie)
-- [ ] Dodanie interaktywnego ruchu kamery
-- [ ] Dodanie interaktywnych elementów ruchomych
-    - [ ] Podnoszenie haka
-    - [ ] Ruszanie haka
-    - [ ] Obracanie dźwigu
-- [ ] Dopracowanie projektu
+- [ x] Szkic rozwiązania
+- [ x] Stworzenie prostych Bryl
+    - [ x] Trzon dzwigu
+    - [ x] Ramie dzwigu
+    - [ x] Kabina
+    - [ x] Podstawa dzwigu z obciazeniem
+    - [x ] Hak i lina
+    - [x ] Przeciwwaga
+    - [x ] Drzewa
+    - [x] Płot
+- [ x] Nałożenie tekstur na wybrane elementy
+- [ x] Dodanie tła
+- [ x] Cieniowanie
+- [x ] Cienie 
+- [ x] Dodanie interaktywnego ruchu kamery
+- [ x] Dodanie interaktywnych elementów ruchomych
+    - [x ] Podnoszenie haka
+    - [ x] Obracanie dźwigu
+- [ x] Dopracowanie projektu
 - [ ] Oddanie projektu
 
 ## Przykładowy projekt
