@@ -40,7 +40,7 @@ Podnoszenie liny (R,F)
 Przesuwanie liny(T,G)
 
 ## Wynik
-![alt text](http://galeranew.ii.pw.edu.pl:8100/GKOM.19Z/ZT1-Dzwig/blob/master/screen.png)
+![wynik](http://galeranew.ii.pw.edu.pl:8100/GKOM.19Z/ZT1-Dzwig/blob/master/screen.png)
 
 
 
