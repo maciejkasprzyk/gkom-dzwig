@@ -28,6 +28,9 @@ void draw_colored(ShaderProgram& shader, Camera& camera);
 void draw_textured(ShaderProgram& shader, Camera& camera);
 
 unsigned int planeVAO;
+float near_plane = 1.0f, far_plane = 10.0f;
+float orth = 60.0f;
+
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -63,6 +66,21 @@ void processCubeInteraction(GLFWwindow* window, Cube& cube, float deltaTime)
 		cube.move(glm::vec3(0.0f, -0.05f * deltaTime, 0.0f));
 	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
 		cube.move(glm::vec3(0.0f, -0.05f * deltaTime, 0.0f));
+	if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS)
+		near_plane += 0.1f;
+	if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
+		near_plane -= 0.1f;
+	if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
+		far_plane += 0.1f;
+	if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+		far_plane -= 0.1f;
+	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
+		orth += 0.1f;
+	if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
+		orth -= 0.1f;
+
+
+
 
 }
 
@@ -81,7 +99,6 @@ void processCraneInteraction(GLFWwindow* window, Crane& crane, float deltaTime)
 	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
 		crane.down(deltaTime);
 }
-
 
 
 int main()
@@ -131,7 +148,7 @@ int main()
 		ShaderProgram debugDepthQuad("debug.vert", "debug.frag");
 		// configure depth map FBO
 		// -----------------------
-		const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+		const unsigned int SHADOW_WIDTH = 4096, SHADOW_HEIGHT = 4096;
 		unsigned int depthMapFBO;
 		glGenFramebuffers(1, &depthMapFBO);
 		// create depth texture
@@ -156,10 +173,7 @@ int main()
 		debugDepthQuad.use();
 		debugDepthQuad.setInt("depthMap", 0);
 
-		// lighting info
-		// -------------
-		glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
-
+		
 		// set up vertex data (and buffer(s)) and configure vertex attributes
 		// ------------------------------------------------------------------
 		float planeVertices[] = {
@@ -229,7 +243,6 @@ int main()
 			float currentFrame = glfwGetTime();
 			deltaTime = (currentFrame - lastFrame) * 60.0f;
 			lastFrame = currentFrame;
-			std::cout << deltaTime << '\n';
 
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -245,10 +258,15 @@ int main()
 			// tutaj koncza sie czynnosci przygotowujace
 			// 1. render depth of scene to texture (from light's perspective)
 			// --------------------------------------------------------------
+	
+
+
+			glm::vec3 lightPos(2.0f, 4.0f, 1.0f);
+
 			glm::mat4 lightProjection, lightView;
 			glm::mat4 lightSpaceMatrix;
-			float near_plane = -20.0f, far_plane = 7.5f;
-			lightProjection = glm::ortho(-60.0f, 60.0f, -60.0f, 60.0f, near_plane, far_plane);
+			cout << near_plane << " " << far_plane << " " << orth << endl;
+			lightProjection = glm::ortho(-orth, orth, -orth, orth, near_plane, far_plane);
 			lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
 			lightSpaceMatrix = lightProjection * lightView;
 			// render scene from light's point of view
@@ -314,10 +332,10 @@ int main()
 			skybox.draw(camera.getProjectionMatrix(), camera.getViewMatrix());
 			// render Depth map to quad for visual debugging
 			// ---------------------------------------------
-			/*debugDepthQuad.use();
+			debugDepthQuad.use();
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, depthMap);
-			renderQuad();*/
+			renderQuad();
 
 			// koniec
 			glfwPollEvents();
