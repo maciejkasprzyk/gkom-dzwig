@@ -107,7 +107,9 @@
     <Image Include="front.jpg" />
     <Image Include="beton.jpg" />
     <Image Include="betonowy.jpg" />
+    <Image Include="grass_tex.jpg" />
     <Image Include="gravel.jpg" />
+    <Image Include="gravel3.jpg" />
     <Image Include="left.jpg" />
     <Image Include="right.jpg" />
     <Image Include="top.jpg" />

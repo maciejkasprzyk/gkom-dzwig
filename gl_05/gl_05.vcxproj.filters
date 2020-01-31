@@ -38,6 +38,8 @@
     <Image Include="left.jpg" />
     <Image Include="right.jpg" />
     <Image Include="top.jpg" />
+    <Image Include="gravel3.jpg" />
+    <Image Include="grass_tex.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="color.frag" />
