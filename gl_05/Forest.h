@@ -12,20 +12,26 @@ class Forest : public Compound
 public:
 	Forest() {
 		// pionowa czesc
-		std::unique_ptr<Tree> stem[30]; // stem znaczy trzon
-		std::generate(
-			begin(stem),
-			end(stem),
-			[]() { return std::make_unique<Tree>(); }
-		);
+		auto t1 = std::unique_ptr<Tree>(new Tree());
+		t1->scale2(glm::vec3(1.4f, 1.4f, 1.4f));
+		addObject(std::move(t1));
 
-		for (auto& x : stem) {
-			x->move2(glm::vec3(-50.0f + rand() % 100, 0.0f, -50.0f + rand() % 100));
-		}
 
-		for (auto& x : stem) {
-			addObject(std::move(x));
-		}
+		auto t2 = std::unique_ptr<Tree>(new Tree());
+		t2->scale2(glm::vec3(0.6f, 0.6f, 0.6f));
+		t2->move2(glm::vec3(-3.0f, 0.0f, 1.0f));
+		addObject(std::move(t2));
+
+		auto t3 = std::unique_ptr<Tree>(new Tree());
+		t3->move2(glm::vec3(-2.0f, 0.0f, -3.5f));
+		addObject(std::move(t3));
+
+		auto t4 = std::unique_ptr<Tree>(new Tree());
+		t4->scale2(glm::vec3(0.6f, 0.6f, 0.6f));
+		t4->move2(glm::vec3(1.0f, 0.0f, -2.0f));
+		addObject(std::move(t4));
+
+
 	}
 };
 
