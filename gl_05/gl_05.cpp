@@ -22,6 +22,7 @@ using namespace std;
 #include "TextureHandler.h"
 #include "Fence.h"
 #include "Fence2.h"
+#include "Counterweights.h"
 
 void renderQuad();
 void renderCube();
@@ -86,12 +87,16 @@ void processCubeInteraction(GLFWwindow* window, Cube& cube, float deltaTime)
 
 }
 
-void processCraneInteraction(GLFWwindow* window, Crane& crane, float deltaTime)
+void processCraneInteraction(GLFWwindow* window, Crane& crane, float deltaTime, Counterweights& counterweights)
 {
-	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
 		crane.rotateTop(true, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+		counterweights.rotate2(glm::vec3(0.0f, 0.5f, 0.0f) * deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
+		counterweights.rotate2(glm::vec3(0.0f, -0.5f, 0.0f) * deltaTime);
 		crane.rotateTop(false, deltaTime);
+	}
 	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
 		crane.forward(deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
@@ -211,13 +216,14 @@ int main()
 		Cube concrete2("betonowy.jpg", 1);
 		Cube concrete3("betonowy.jpg", 1);
 		Cube concrete4("betonowy.jpg", 1);
-		Cube ground("grass_tex.jpg", 4);
-		Cube ground2("gravel.jpg", 2);
+		Cube ground("grass_tex.jpg", 16);
+		Cube ground2("gravel.jpg", 4);
 		Cube cube(YELLOW);
 		CraneBase base;
 		Crane crane;
 		Forest forest;
 		Fence fence;
+		Counterweights counterweights;
 
 		auto fence1 = Fence2();
 		auto fence3 = Fence2();
@@ -273,7 +279,7 @@ int main()
 			glm::mat4 projection = camera.getProjectionMatrix();
 
 			processCubeInteraction(window, cube, deltaTime);
-			processCraneInteraction(window, crane, deltaTime);
+			processCraneInteraction(window, crane, deltaTime, counterweights);
 
 			// tutaj koncza sie czynnosci przygotowujace
 			// 1. render depth of scene to texture (from light's perspective)
@@ -308,6 +314,7 @@ int main()
 			fence.draw(shader.get_programID(), camera);
 			fence1.draw(shader.get_programID(), camera);
 			fence3.draw(shader.get_programID(), camera);
+			counterweights.draw(shader.get_programID(), camera);
 			// kolorwe
 			cube.draw(shader.get_programID(), camera);
 			crane.draw(shader.get_programID(), camera);
@@ -342,6 +349,7 @@ int main()
 			forest.draw(colorShaders.get_programID(), camera);
 			fence1.draw(colorShaders.get_programID(), camera);
 			fence3.draw(colorShaders.get_programID(), camera);
+			counterweights.draw(colorShaders.get_programID(), camera);
 			// obiekty z kolorem ------------
 
 			colorShaders.use();
