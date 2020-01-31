@@ -20,6 +20,7 @@ using namespace std;
 #include "Cone.h"
 #include "CraneBase.h"
 #include "TextureHandler.h"
+#include "Fence.h"
 
 void renderQuad();
 void renderCube();
@@ -187,6 +188,8 @@ int main()
 			 25.0f, -0.5f, -25.0f,  0.0f, 1.0f, 0.0f,  25.0f, 10.0f
 		};
 
+		// -------------- objects -----------------
+	
 		// plane VAO
 		unsigned int planeVBO;
 		glGenVertexArrays(1, &planeVAO);
@@ -207,13 +210,15 @@ int main()
 		Cube concrete2("betonowy.jpg", 1);
 		Cube concrete3("betonowy.jpg", 1);
 		Cube concrete4("betonowy.jpg", 1);
-		Cube ground("gravel.jpg", 50);
+		Cube ground("grass_tex.jpg", 30);
 		Cube cube(YELLOW);
 		CraneBase base;
 		Crane crane;
 		Tree tree;
 		Forest forest;
-	
+		Fence fence;
+
+
 		ground.scale(glm::vec3(100.0f, 1.0f, 100.0f));
 		ground.move(glm::vec3(0.0f, -0.5f, 0.0f)); // podloga jest dokladnie na y = 0.0
 	
@@ -233,7 +238,7 @@ int main()
 		concrete4.move(glm::vec3(0.0f, 0.4f, -0.5f));
 		concrete4.rotate2(glm::vec3(0.0f, 90.0f, 0.0f));
 
-		
+
 		tree.move2(glm::vec3(4.0f, 0.0f, 0.0f));
 		//skybox
 		auto skybox = Skybox();
@@ -312,6 +317,7 @@ int main()
 			concrete2.draw(textureShaders.get_programID(), camera);
 			concrete3.draw(textureShaders.get_programID(), camera);
 			concrete4.draw(textureShaders.get_programID(), camera);
+			fence.draw(textureShaders.get_programID(), camera);
 			forest.draw(colorShaders.get_programID(), camera);
 
 			// obiekty z kolorem ------------
