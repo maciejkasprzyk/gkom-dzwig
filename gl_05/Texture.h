@@ -77,7 +77,7 @@ public:
 	 */
 	void useTexture(std::shared_ptr<ShaderProgram> shader) const
 	{
-		shader->Use();
+		shader->use();
 		setActiveTexture();
 		glBindTexture(GL_TEXTURE_2D, texture);
 		shader->setInt(textureName, textureIndex);

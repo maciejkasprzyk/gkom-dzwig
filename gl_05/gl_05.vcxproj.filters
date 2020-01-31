@@ -52,5 +52,9 @@
     <None Include="skybox.vert" />
     <None Include="texture.frag" />
     <None Include="texture.vert" />
+    <None Include="shadow.vert" />
+    <None Include="shadow.frag" />
+    <None Include="debug.vert" />
+    <None Include="debug.frag" />
   </ItemGroup>
 </Project>
