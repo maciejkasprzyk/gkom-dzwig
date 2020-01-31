@@ -30,8 +30,8 @@ void draw_colored(ShaderProgram& shader, Camera& camera);
 void draw_textured(ShaderProgram& shader, Camera& camera);
 
 unsigned int planeVAO;
-float near_plane = 1.0f, far_plane = 10.0f;
-float orth = 60.0f;
+float near_plane = -12.0f, far_plane = 11.0f;
+float orth = 27.0f;
 
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -318,7 +318,7 @@ int main()
 			// reset viewport
 			glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+			
 			// skonczylismy renederowac mape cienia
 			// 2. render scene as normal using the generated depth/shadow map  
 			// --------------------------------------------------------------
