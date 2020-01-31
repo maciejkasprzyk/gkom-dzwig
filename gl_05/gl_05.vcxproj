@@ -92,10 +92,14 @@
   <ItemGroup>
     <None Include="color.frag" />
     <None Include="color.vert" />
+    <None Include="debug.frag" />
+    <None Include="debug.vert" />
     <None Include="lamp.frag" />
     <None Include="lamp.vect" />
     <None Include="lights.frag" />
     <None Include="lights.vect" />
+    <None Include="shadow.frag" />
+    <None Include="shadow.vert" />
     <None Include="skybox.frag" />
     <None Include="skybox.vert" />
     <None Include="texture.frag" />
