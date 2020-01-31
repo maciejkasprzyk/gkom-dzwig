@@ -209,6 +209,7 @@ int main()
 			concrete2.draw(textureShaders.get_programID(), camera);
 			concrete3.draw(textureShaders.get_programID(), camera);
 			concrete4.draw(textureShaders.get_programID(), camera);
+			fence.draw(textureShaders.get_programID(), camera);
 			forest.draw(colorShaders.get_programID(), camera);
 
 			colorShaders.Use();
@@ -217,7 +218,6 @@ int main()
 			cube.draw(colorShaders.get_programID(), camera);
 			crane.draw(colorShaders.get_programID(), camera);
 			base.draw(colorShaders.get_programID(), camera);
-			fence.draw(colorShaders.get_programID(), camera);
 			skybox.draw(camera.getProjectionMatrix(), camera.getViewMatrix());
 			glfwPollEvents();
 			glfwSwapBuffers(window);

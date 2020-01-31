@@ -18,8 +18,8 @@ class FenceSegment : public Compound {
 public:
 	FenceSegment()
 	{
-		auto bottom = std::unique_ptr<Cube>(new Cube(ORANGE));
-		auto top = std::unique_ptr<Cube>(new Cube(ORANGE));
+		auto bottom = std::unique_ptr<Cube>(new Cube("brick.jpg", 1));
+		auto top = std::unique_ptr<Cube>(new Cube("brick.jpg", 1));
 
 		bottom->move(glm::vec3(0.0f, BLOCK_HEIGHT/2, 0.0f));
 		bottom->scale(glm::vec3(BLOCK_WIDTH, BLOCK_HEIGHT, getDepth()));
