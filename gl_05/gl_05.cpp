@@ -118,8 +118,7 @@ int main()
 		//shaders
 		ShaderProgram textureShaders("texture.vert", "texture.frag");
 		ShaderProgram colorShaders("color.vert", "color.frag");
-		ShaderProgram lightningShader("lights.vect", "lights.frag");
-		ShaderProgram lampShader("lamp.vect", "lamp.frag");
+
 		// -------------- objects -----------------
 		// Ground
 		Cube ground("gravel.jpg", 50);
@@ -161,19 +160,7 @@ int main()
 		tree.move2(glm::vec3(4.0f, 0.0f, 0.0f));
 		//skybox
 		auto skybox = Skybox();
-		//lights
-		auto pointLightPositions = {
-			glm::vec3(0.7f,  0.2f,  2.0f),
-			glm::vec3(2.3f, -3.3f, -4.0f),
-			glm::vec3(-4.0f,  2.0f, -12.0f),
-			glm::vec3(0.0f,  0.0f, -3.0f)
-		};
-		unsigned int diffuseMap = loadTexture("gravel.jpg");
-		unsigned int specularMap = loadTexture("gravel.jpg");
-
-		lightningShader.Use();
-		lightningShader.setInt("material.diffuse", 0);
-		lightningShader.setInt("material.specular", 1);
+	
 		auto forest = Forest();
 		while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
 		{
@@ -184,10 +171,6 @@ int main()
 
 			glClearColor(0.2f, 0.7f, 0.9f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			lightningShader.Use();
-			lightningShader.setVec3("viewPos", camera.getPosition());
-			lightningShader.setFloat("material.shininess", 32.0f);
 
 			glDepthFunc(GL_LESS);
 			camera.computeMatricesFromInputs();
