@@ -248,7 +248,7 @@ int main()
 			glm::mat4 lightProjection, lightView;
 			glm::mat4 lightSpaceMatrix;
 			float near_plane = -20.0f, far_plane = 7.5f;
-			lightProjection = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, near_plane, far_plane);
+			lightProjection = glm::ortho(-60.0f, 60.0f, -60.0f, 60.0f, near_plane, far_plane);
 			lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
 			lightSpaceMatrix = lightProjection * lightView;
 			// render scene from light's point of view
